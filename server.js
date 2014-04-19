@@ -22,4 +22,7 @@ io.sockets.on('connection', function (socket) {
     socket.emit('serverMessage', 'You said: ' + content);
     socket.broadcast.emit('serverMessage', socket.id + ' said: ' + content);
   });
+  
 });
+
+
