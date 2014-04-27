@@ -32,7 +32,7 @@ if ('development' == app.get('env')) {
 
 io.sockets.on('connection', function (socket) {
   socket.on('clientMessage', function(content) {
-    socket.emit('serverMessage', 'You said: ' + content);
+    socket.emit('serverMessage', {'username': 'You', 'message': content});
     socket.get('username', function (err, username) {
       if (!username) {
         username = socket.id;
@@ -45,7 +45,7 @@ io.sockets.on('connection', function (socket) {
         if (room) {
           broadcast.to(room);
         }
-        broadcast.emit('serverMessage', username + ' said: ' + message);
+        broadcast.emit('serverMessage', {'username': username, 'message': content});
       });
     });
   });

@@ -2,14 +2,38 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Socket.IO example application</title>
-    <style src="js/vendor/bootstrap/dist/css/bootstrap.min.css"></style>
+    <title>Marionette Socketchat</title>
+    <link rel="stylesheet" href="js/vendor/bootstrap/dist/css/bootstrap.min.css">
   </head>
   <body>
-    <input type="text" id="input" />
-    <div id="messages">
-    </div>
-    <script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
+    <section>
+      <header id="header">
+      </header>
+      <section>
+      <div class="container">
+        <div class="row">
+          <div id="msgOut" class="col-md-6" style="height:275px; overflow-y:auto;">
+          </div>
+          <div id="users" class="col-md-6">
+          </div>
+        </div>
+
+        <div class="row">
+          <div id="msgIn" class="col-md-6">
+            <input class="form-control" type="text" id="input" />
+          </div>
+        </div>
+      </div>
+      </section>
+      <footer id="footer"></footer>
+    </section>
+    <!-- Templates !-->
+    <script type="text/template" id="outMessageTmp">
+      <%= username %> said: <%= message %>
+    </script>
+    
+    <!-- Scripts !-->
+    <script src="socket.io/socket.io.js"></script>
     <!-- bower:js -->
     <script src="js/vendor/jquery/dist/jquery.js"></script>
     <script src="js/vendor/bootstrap/dist/js/bootstrap.js"></script>
@@ -19,57 +43,13 @@
     <script src="js/vendor/backbone.wreqr/lib/backbone.wreqr.js"></script>
     <script src="js/vendor/marionette/lib/backbone.marionette.js"></script>
     <!-- endbower --> 
+    <script src="js/ChatApp.js"></script>
+    <script src="js/ChatApp.Entities.js"></script>
+    <script src="js/ChatApp.Views.js"></script>
+    <script src="js/ChatApp.Sockets.js"></script>
+    <script src="js/ChatApp.Main.js"></script>
     <script>
-      var messageElement = document.getElementById('messages');
-      var lastMessageElement = null;
-
-      function addMessage(message) {
-        var newMessageElement = document.createElement('div');
-        var newMessageText = document.createTextNode(message);
-
-        newMessageElement.appendChild(newMessageText);
-        messageElement.insertBefore(newMessageElement, lastMessageElement);
-        lastMessageElement = newMessageElement;
-      }
-      
-      var socket = io.connect('http://127.0.0.1:3000');
-      socket.on('serverMessage', function(content) {
-        addMessage(content);
-      });
-      
-      socket.on('login', function() {
-        var username = prompt('What username would you like to use?'); 
-        socket.emit('login', username);
-      });
-
-      function sendCommand(command, args) {
-        if (command === 'j') {
-          socket.emit('join', args);
-        } else {
-          alert('unknown command: ' + command);
-        }
-      }
-      
-      function sendMessage(message) {
-        var commandMatch = message.match(/^\/(\w*)(.*)/);
-        if (commandMatch) {
-          sendCommand(commandMatch[1], commandMatch[2].trim());
-        } else {
-          socket.emit('clientMessage', message);
-        }
-      }
-      var inputElement = document.getElementById('input');
-
-      inputElement.onkeydown = function(keyboardEvent) {
-        if (keyboardEvent.keyCode === 13) {
-          sendMessage(inputElement.value);
-          inputElement.value = '';
-          return false;
-        } else {
-          return true;
-        }
-      };
+      $(ChatApp.start());
     </script>
-
   </body>
 </html>
