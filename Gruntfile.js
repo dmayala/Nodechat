@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
     target: {
       src: [
-        '*.html'   // .html support...
+        'client/*.html'   // .html support...
       ]
     }
   }

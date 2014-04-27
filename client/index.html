@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Socket.IO example application</title>
+    <style src="js/vendor/bootstrap/dist/css/bootstrap.min.css"></style>
+  </head>
+  <body>
+    <input type="text" id="input" />
+    <div id="messages">
+    </div>
+    <script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
+    <!-- bower:js -->
+    <script src="js/vendor/jquery/dist/jquery.js"></script>
+    <script src="js/vendor/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="js/vendor/underscore/underscore.js"></script>
+    <script src="js/vendor/backbone/backbone.js"></script>
+    <script src="js/vendor/backbone.babysitter/lib/backbone.babysitter.js"></script>
+    <script src="js/vendor/backbone.wreqr/lib/backbone.wreqr.js"></script>
+    <script src="js/vendor/marionette/lib/backbone.marionette.js"></script>
+    <!-- endbower --> 
+    <script>
+      var messageElement = document.getElementById('messages');
+      var lastMessageElement = null;
+
+      function addMessage(message) {
+        var newMessageElement = document.createElement('div');
+        var newMessageText = document.createTextNode(message);
+
+        newMessageElement.appendChild(newMessageText);
+        messageElement.insertBefore(newMessageElement, lastMessageElement);
+        lastMessageElement = newMessageElement;
+      }
+      
+      var socket = io.connect('http://127.0.0.1:3000');
+      socket.on('serverMessage', function(content) {
+        addMessage(content);
+      });
+      
+      socket.on('login', function() {
+        var username = prompt('What username would you like to use?'); 
+        socket.emit('login', username);
+      });
+
+      function sendCommand(command, args) {
+        if (command === 'j') {
+          socket.emit('join', args);
+        } else {
+          alert('unknown command: ' + command);
+        }
+      }
+      
+      function sendMessage(message) {
+        var commandMatch = message.match(/^\/(\w*)(.*)/);
+        if (commandMatch) {
+          sendCommand(commandMatch[1], commandMatch[2].trim());
+        } else {
+          socket.emit('clientMessage', message);
+        }
+      }
+      var inputElement = document.getElementById('input');
+
+      inputElement.onkeydown = function(keyboardEvent) {
+        if (keyboardEvent.keyCode === 13) {
+          sendMessage(inputElement.value);
+          inputElement.value = '';
+          return false;
+        } else {
+          return true;
+        }
+      };
+    </script>
+
+  </body>
+</html>
