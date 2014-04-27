@@ -6,6 +6,7 @@
 node_modules
 
 # bower packages
+js/vendor
 client/js/vendor/
 client/css
 client/fonts

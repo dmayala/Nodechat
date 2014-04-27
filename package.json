@@ -1,0 +1,26 @@
+{
+  "name": "nodechat",
+  "version": "0.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt-bower-install": "~1.4.0",
+    "grunt": "~0.4.4",
+    "socket.io": "~0.9.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dmayala/Nodechat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmayala/Nodechat/issues"
+  },
+  "homepage": "https://github.com/dmayala/Nodechat"
+}
