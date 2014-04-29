@@ -5,9 +5,16 @@ ChatApp.module('Sockets',  function(Main, App, Backbone, Marionette, $, _) {
     App.vent.trigger('serverMessage', content);
   });
 
+  socket.on('')
+
   socket.on('login', function() {
     var username = prompt('What username would you like to use?'); 
     socket.emit('login', username);
+  });
+
+  socket.on('newuser', function(user) {
+    console.log('hu');
+    App.vent.trigger('newuser', user);
   });
 
   function sendCommand(command, args) {

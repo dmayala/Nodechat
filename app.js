@@ -32,8 +32,8 @@ if ('development' == app.get('env')) {
 
 io.sockets.on('connection', function (socket) {
   socket.on('clientMessage', function(content) {
-    socket.emit('serverMessage', {'username': 'You', 'message': content});
     socket.get('username', function (err, username) {
+      socket.emit('serverMessage', {'username': username, 'content': 'You said: ' + content});
       if (!username) {
         username = socket.id;
       }
@@ -45,7 +45,7 @@ io.sockets.on('connection', function (socket) {
         if (room) {
           broadcast.to(room);
         }
-        broadcast.emit('serverMessage', {'username': username, 'message': content});
+        broadcast.emit('serverMessage', {'username': username, 'content': username + ' said: ' + content});
       });
     });
   });
@@ -53,8 +53,9 @@ io.sockets.on('connection', function (socket) {
   socket.on('login', function (username) {
     socket.set('username', username, function (err) {
       if (err) { throw err; } 
-      socket.emit('serverMessage', 'Currently logged in as ' + username);
-      socket.broadcast.emit('serverMessage', 'User ' + username + ' logged in');
+      socket.emit('serverMessage', {'username': username, 'content': 'Currently logged in as ' + username} );
+      socket.broadcast.emit('newuser', {'username': username});
+      socket.broadcast.emit({'username': username, 'content': 'User ' + username + ' logged in'});
     });
   }); 
   
@@ -63,7 +64,7 @@ io.sockets.on('connection', function (socket) {
       if (!username) {
         username = socket.id;
       }
-      socket.broadcast.emit('serverMessage', 'User ' + username + ' disconnected');
+      socket.broadcast.emit('serverMessage', {'username': username, 'content': 'User ' + username + ' disconnected'});
     });
   });
 
@@ -83,12 +84,12 @@ io.sockets.on('connection', function (socket) {
             username = socket.id;
           }
         });
-        socket.emit('serverMessage', 'You join room ' + room);
         socket.get('username', function (err, username) {
+          socket.emit('serverMessage', {'username': username, 'content': 'You joined room ' + room});
           if (!username) {
             username = socket.id;
           }
-          socket.broadcast.to(room).emit('serverMessage', 'User ' + username + ' joined this room');
+          socket.broadcast.to(room).emit('serverMessage', {'username': username, 'content': 'User ' + username + ' joined this room'});
         });
       });
     });

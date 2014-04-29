@@ -4,5 +4,6 @@ ChatApp.addRegions({
   'header': '#header',
   'msgOutput': '#msgOut',
   'msgInput': '#msgIn',
-  'footer': '#footer'
+  'footer': '#footer',
+  'users': '#users'
 });
