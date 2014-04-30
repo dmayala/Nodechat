@@ -13,7 +13,6 @@ ChatApp.module('Sockets',  function(Main, App, Backbone, Marionette, $, _) {
   });
 
   socket.on('newuser', function(user) {
-    console.log('hu');
     App.vent.trigger('newuser', user);
   });
 

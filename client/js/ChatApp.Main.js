@@ -4,15 +4,8 @@ ChatApp.module('Main', function(Main, App, Backbone, Marionette, $, _) {
     initialize: function(options) {
       this.messages = new App.Entities.Messages();
       this.users = new App.Entities.Users();
-      window.users = this.users;
-      this.region = options.region;
-      App.vent.on('serverMessage', function(content) {
-        this.addMsg(content);
-      }, this);
-      App.vent.on('newuser', function (user) {
-        console.log('here');
-        this.addUser(user);
-      }, this);
+      App.vent.on('serverMessage', this.addMsg, this);
+      App.vent.on('newuser', this.addUser, this);
     },
 
     addMsg: function(content) {
