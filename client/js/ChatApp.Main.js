@@ -21,6 +21,7 @@ ChatApp.module('Main', function(Main, App, Backbone, Marionette, $, _) {
     show: function() {
       var outboundView = new App.Views.OutboundMessages({collection: this.messages});
       var userListView = new App.Views.UserItemList({collection: this.users});
+      var socketView = new App.Views.Socket({el: '#msgIn'});
       App.msgOutput.show(outboundView);
       App.users.show(userListView);
     }

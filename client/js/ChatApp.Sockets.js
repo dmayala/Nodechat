@@ -5,8 +5,6 @@ ChatApp.module('Sockets',  function(Main, App, Backbone, Marionette, $, _) {
     App.vent.trigger('serverMessage', content);
   });
 
-  socket.on('')
-
   socket.on('login', function() {
     var username = prompt('What username would you like to use?'); 
     socket.emit('login', username);
@@ -16,32 +14,11 @@ ChatApp.module('Sockets',  function(Main, App, Backbone, Marionette, $, _) {
     App.vent.trigger('newuser', user);
   });
 
-  function sendCommand(command, args) {
-    if (command === 'j') {
-      socket.emit('join', args);
-    } else {
-      alert('unknown command: ' + command);
-    }
-  }
+  App.vent.on('clientMessage', function (message) {
+    socket.emit('clientMessage', message);
+  });
 
-  function sendMessage(message) {
-    var commandMatch = message.match(/^\/(\w*)(.*)/);
-    if (commandMatch) {
-      sendCommand(commandMatch[1], commandMatch[2].trim());
-    } else {
-      socket.emit('clientMessage', message);
-    }
-  }
-
-  var inputElement = document.getElementById('input');
-
-  inputElement.onkeydown = function(keyboardEvent) {
-    if (keyboardEvent.keyCode === 13) {
-      sendMessage(inputElement.value);
-      inputElement.value = '';
-      return false;
-    } else {
-      return true;
-    }
-  };
+  App.vent.on('join', function(args) {
+    socket.emit('join', args);
+  });
 });

@@ -54,6 +54,7 @@ io.sockets.on('connection', function (socket) {
     socket.set('username', username, function (err) {
       if (err) { throw err; } 
       socket.emit('serverMessage', {'username': username, 'content': 'Currently logged in as ' + username} );
+      socket.emit('newuser', {'username': username});
       socket.broadcast.emit('newuser', {'username': username});
       socket.broadcast.emit({'username': username, 'content': 'User ' + username + ' logged in'});
     });
