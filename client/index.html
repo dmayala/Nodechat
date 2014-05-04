@@ -7,23 +7,17 @@
   </head>
   <body>
     <section>
-      <header id="header">
-      </header>
+      <header id="header"></header>
       <section>
-      <div class="container">
-        <div class="row">
-          <div id="msgOut" class="col-md-6" style="height:275px; overflow-y:auto;">
-          </div>
-          <div id="users" class="col-md-6">
-          </div>
-        </div>
+        <div class="container">
+          <div class="row">
+            <div id="msgPanel" class="col-md-6">
 
-        <div class="row">
-          <div id="msgIn" class="col-md-6">
-            <input class="form-control" type="text" id="input" />
+            </div>
+
+            <div id="users" class="col-md-6"></div>
           </div>
         </div>
-      </div>
       </section>
       <footer id="footer"></footer>
     </section>
@@ -34,6 +28,22 @@
 
     <script type="text/template" id="userItem">
       <%= username %>
+    </script>
+
+    <script type="text/template" id="msgInOptions">
+      <input class="form-control" type="text" id="input" />
+    </script>
+
+    <script type="text/template" id="msgPanelTmp">
+      <div class="row">
+        <div id="msgOut" style="height:275px; overflow-y:auto;">
+        </div>
+      </div>
+      
+      <div class="row">
+        <div id="msgIn">
+        </div>
+      </div>
     </script>
     
     <!-- Scripts !-->
@@ -47,11 +57,16 @@
     <script src="js/vendor/backbone.wreqr/lib/backbone.wreqr.js"></script>
     <script src="js/vendor/marionette/lib/backbone.marionette.js"></script>
     <!-- endbower --> 
-    <script src="js/ChatApp.js"></script>
-    <script src="js/ChatApp.Entities.js"></script>
-    <script src="js/ChatApp.Views.js"></script>
-    <script src="js/ChatApp.Sockets.js"></script>
-    <script src="js/ChatApp.Main.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/common/sockets.js"></script>
+    <script src="js/entities/message.js"></script>
+    <script src="js/entities/user.js"></script>
+    <script src="js/apps/messaging/panel/panel.view.js"></script>
+    <script src="js/apps/messaging/panel/panel.controller.js"></script>
+    <script src="js/apps/messaging/userlist/userlist.view.js"></script>
+    <script src="js/apps/messaging/userlist/userlist.controller.js"></script>
+    <script src="js/apps/messaging/messaging.app.js"></script>
+
     <script>
       $(ChatApp.start());
     </script>

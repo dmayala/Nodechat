@@ -1,22 +1,25 @@
-ChatApp.module('Views', function(Views, App, Backbone, Marionette, $, _) {
+ChatApp.module('MessagingApp.Panel', function(Panel, App, Backbone, Marionette, $, _) {
 
-  Views.OutMessage = Marionette.ItemView.extend({
+  Panel.Layout = Marionette.Layout.extend({
+    template: '#msgPanelTmp',
+
+    regions: {
+      msgInRegion: '#msgIn',
+      msgOutRegion: '#msgOut'
+    }
+  });
+
+  Panel.Message = Marionette.ItemView.extend({
     template: '#outMessageTmp'
   });
 
-  Views.OutboundMessages = Marionette.CollectionView.extend({
-    itemView: Views.OutMessage
+  Panel.Messages = Marionette.CollectionView.extend({
+    itemView: Panel.Message,
   });
 
-  Views.UserItem = Marionette.ItemView.extend({
-  	template: '#userItem'
-  });
+  Panel.MessageInput = Marionette.ItemView.extend({
 
-  Views.UserItemList = Marionette.CollectionView.extend({
-  	itemView: Views.UserItem
-  });
-
-  Views.Socket = Marionette.ItemView.extend({
+    template: '#msgInOptions',
 
     events: {
       'keydown #input': 'checkInput'
