@@ -6,7 +6,11 @@ ChatApp.module('MessagingApp.UserList', function(UserList, App, Backbone, Marion
       var usersListView = new UserList.Users({collection: users});
 
       App.vent.on('newuser', function(data) {
-        users.add({ username: data.username });
+        users.add(data);
+      });
+
+      App.vent.on('userquit', function (data) {
+        users.remove(data.id);
       });
 
       App.users.show(usersListView);

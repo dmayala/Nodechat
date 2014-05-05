@@ -30,13 +30,19 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+var users = [];
+
+app.get('/users', function(req, res) {
+  res.json(users);
+});
+
 io.sockets.on('connection', function (socket) {
   socket.on('clientMessage', function(content) {
-    socket.get('username', function (err, username) {
-      socket.emit('serverMessage', {'username': username, 'content': 'You said: ' + content});
-      if (!username) {
-        username = socket.id;
+    socket.get('user', function (err, user) {
+      if (!user.username) {
+        user.username = socket.id;
       }
+
       socket.get('room', function (err, room) {
         if (err) { throw err; }
         var broadcast = socket.broadcast;
@@ -45,27 +51,34 @@ io.sockets.on('connection', function (socket) {
         if (room) {
           broadcast.to(room);
         }
-        broadcast.emit('serverMessage', {'username': username, 'content': username + ' said: ' + content});
+
+        io.sockets.emit('serverMessage', {'username': user.username, 'content': user.username + ' said: ' + content});
       });
+
     });
   });
   
-  socket.on('login', function (username) {
-    socket.set('username', username, function (err) {
+  socket.on('login', function (username ) {
+    var user =  { 'id': users.length, 'username': username }
+    socket.set('user', user , function (err) {
       if (err) { throw err; } 
-      socket.emit('serverMessage', {'username': username, 'content': 'Currently logged in as ' + username} );
-      socket.emit('newuser', {'username': username});
-      socket.broadcast.emit('newuser', {'username': username});
-      socket.broadcast.emit({'username': username, 'content': 'User ' + username + ' logged in'});
+      users.push(user);
+      io.sockets.emit('newuser', user);
+      io.sockets.emit('serverMessage', {'username': username, 'content': 'User ' + username + ' logged in'});
     });
   }); 
   
   socket.on('disconnect', function() {
-    socket.get('username', function(err, username) {
-      if (!username) {
-        username = socket.id;
+    socket.get('user', function(err, user) {
+      if (!user.username) {
+        user.id = users.length;
+        user.username = socket.id;
       }
-      socket.broadcast.emit('serverMessage', {'username': username, 'content': 'User ' + username + ' disconnected'});
+
+      delete users[user.id];
+
+      io.sockets.emit('userquit', user);
+      socket.broadcast.emit('serverMessage', {'username': user.username, 'content': 'User ' + user.username + ' disconnected'});
     });
   });
 

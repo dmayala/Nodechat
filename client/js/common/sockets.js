@@ -14,6 +14,10 @@ ChatApp.module('Sockets',  function(Main, App, Backbone, Marionette, $, _) {
     App.vent.trigger('newuser', user);
   });
 
+  socket.on('userquit', function(user) {
+    App.vent.trigger('userquit', user);
+  });
+
   App.vent.on('clientMessage', function (message) {
     socket.emit('clientMessage', message);
   });
