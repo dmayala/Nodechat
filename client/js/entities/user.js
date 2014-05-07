@@ -15,7 +15,15 @@ ChatApp.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
   var API = {
     getUserEntities: function() {
       var users = new Entities.Users();
-      users.fetch();
+      users.fetch({success: 
+      function() {
+        var filterType = _.filter(users.models, function(item) {
+          return item.get('username') !== '';
+        });
+        users.reset(filterType);
+        }
+      });
+
       return users;
     }
   };

@@ -6,8 +6,8 @@ ChatApp.module('MessagingApp.UserList', function(UserList, App, Backbone, Marion
   });
 
   UserList.Users = Marionette.CompositeView.extend({
-  	tagName: 'table',
-  	template: '#userListTemp',
+    tagName: 'table',
+    template: '#userListTemp',
     itemView: UserList.User,
     itemViewContainer: 'tbody',
 
