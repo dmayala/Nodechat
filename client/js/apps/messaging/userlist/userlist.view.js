@@ -1,7 +1,7 @@
 ChatApp.module('MessagingApp.UserList', function(UserList, App, Backbone, Marionette, $, _) {
 
   UserList.User = Marionette.ItemView.extend({
-  	tagName: 'tr',
+    tagName: 'tr',
     template: '#userItem'
   });
 
@@ -12,12 +12,12 @@ ChatApp.module('MessagingApp.UserList', function(UserList, App, Backbone, Marion
     itemViewContainer: 'tbody',
 
     collectionEvents: {
-    	'add': 'userNum',
-    	'remove': 'userNum'
+      'add': 'userNum',
+      'remove': 'userNum'
     },
 
     userNum: function() {
-    	this.$('.js-usernum').html(this.collection.models.length);
+      this.$('.js-usernum').html(this.collection.models.length);
     }
   });
   

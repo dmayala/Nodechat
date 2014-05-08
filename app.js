@@ -70,15 +70,13 @@ io.sockets.on('connection', function (socket) {
   
   socket.on('disconnect', function() {
     socket.get('user', function(err, user) {
-      if (!user.username) {
-        user.id = users.length;
-        user.username = socket.id;
+
+      if (user) {
+        delete users[user.id];
+
+        io.sockets.emit('userquit', user);
+        socket.broadcast.emit('serverMessage', {'username': user.username, 'content': 'User ' + user.username + ' disconnected'});
       }
-
-      delete users[user.id];
-
-      io.sockets.emit('userquit', user);
-      socket.broadcast.emit('serverMessage', {'username': user.username, 'content': 'User ' + user.username + ' disconnected'});
     });
   });
 
