@@ -3,9 +3,13 @@ var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 
+var mongoose = require('mongoose');
+
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
+
+var mongoUri = 'mongodb://localhost/nodechat-dev';
 
 
 // all environments
@@ -25,6 +29,9 @@ app.use(express.static(path.join(__dirname, 'client')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+// MongoDB
+var db = mongoose.connect(mongoUri);
 
 routes(app, io);
 
