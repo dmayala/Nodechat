@@ -1,9 +1,7 @@
 var ChatApp = new Marionette.Application();
 
 ChatApp.addRegions({
-  'header': '#header',
   'msgPanel': '#msgPanel',
-  'footer': '#footer',
   'users': '#users'
 });
 

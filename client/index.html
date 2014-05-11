@@ -3,24 +3,48 @@
   <head>
     <meta charset="UTF-8">
     <title>Marionette Socketchat</title>
-    <link rel="stylesheet" href="js/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/vendor/foundation/css/normalize.css">
+    <link rel="stylesheet" href="js/vendor/foundation/css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
-    <section>
-      <header id="header"></header>
-      <section>
-        <div class="container">
-          <div class="row">
-            <div id="msgPanel" class="col-md-6">
+      <div class="off-canvas-wrap" data-offcanvas>
+        <div class="inner-wrap">
+          <nav class="tab-bar">
 
+            <section class="left-small">
+              <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+            </section>
+
+            <section class="middle tab-bar-section">
+              <h1 class="title">Nodechat</h1>
+            </section>
+
+          </nav>
+
+          <aside class="left-off-canvas-menu">
+            <ul class="off-canvas-list">
+              <li><label>Rooms</label></li>
+              <li><a href="#">Main Room</a></li>
+              <li><a href="#">Room 2</a></li>
+              <li><label>Settings</label></li>
+              <li><a href="#">Sounds</a></li>
+            </ul>
+          </aside>
+
+          <section class="main-section">
+            <div class="row">
+              <div id="msgPanel" class="large-10 columns"></div>
+
+              <div id="users" class="large-2 columns"></div>
             </div>
+          </section>
 
-            <div id="users" class="col-md-6"></div>
-          </div>
+        <a class="exit-off-canvas"></a>
+
         </div>
-      </section>
-      <footer id="footer"></footer>
-    </section>
+      </div>
+
     <!-- Templates !-->
     <script type="text/template" id="outMessageTmp">
       <%= content %>
@@ -43,12 +67,12 @@
     </script>
 
     <script type="text/template" id="msgInOptions">
-      <input class="form-control" type="text" id="input" />
+      <input type="text" id="input" />
     </script>
 
     <script type="text/template" id="msgPanelTmp">
       <div class="row">
-        <div id="msgOut" style="height:275px; overflow-y:auto;">
+        <div id="msgOut">
         </div>
       </div>
       
@@ -61,13 +85,18 @@
     <!-- Scripts !-->
     <script src="socket.io/socket.io.js"></script>
     <!-- bower:js -->
+    <script src="js/vendor/modernizr/modernizr.js"></script>
     <script src="js/vendor/jquery/dist/jquery.js"></script>
-    <script src="js/vendor/bootstrap/dist/js/bootstrap.js"></script>
     <script src="js/vendor/underscore/underscore.js"></script>
     <script src="js/vendor/backbone/backbone.js"></script>
     <script src="js/vendor/backbone.babysitter/lib/backbone.babysitter.js"></script>
     <script src="js/vendor/backbone.wreqr/lib/backbone.wreqr.js"></script>
     <script src="js/vendor/marionette/lib/backbone.marionette.js"></script>
+    <script src="js/vendor/fastclick/lib/fastclick.js"></script>
+    <script src="js/vendor/jquery.cookie/jquery.cookie.js"></script>
+    <script src="js/vendor/foundation/js/foundation.min.js"></script>
+
+
     <!-- endbower --> 
     <script src="js/app.js"></script>
     <script src="js/common/sockets.js"></script>
@@ -80,7 +109,7 @@
     <script src="js/apps/messaging/messaging.app.js"></script>
 
     <script>
-      $(ChatApp.start());
+      $(document).foundation().ready(ChatApp.start());
     </script>
   </body>
 </html>
