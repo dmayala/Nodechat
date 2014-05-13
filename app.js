@@ -9,7 +9,7 @@ var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
-var mongoUri = 'mongodb://localhost/nodechat-dev';
+//var mongoUri = 'mongodb://localhost/nodechat-dev';
 
 
 // all environments
@@ -31,7 +31,7 @@ if ('development' == app.get('env')) {
 }
 
 // MongoDB
-var db = mongoose.connect(mongoUri);
+//var db = mongoose.connect(mongoUri);
 
 routes(app, io);
 

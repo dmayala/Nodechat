@@ -1,0 +1,8 @@
+.row {
+	max-width: none;
+}
+
+#msgOut {
+	height: 85vh;
+	overflow-y:auto;
+}

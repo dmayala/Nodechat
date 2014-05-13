@@ -1,3 +1,5 @@
+var mongoose = require('mongoose');
+
 var users = [];
 var init = function(io) {
   io.sockets.on('connection', function (socket) {
@@ -23,7 +25,10 @@ var init = function(io) {
     });
     
     socket.on('login', function (username ) {
-      var user =  { 'id': users.length, 'username': username }
+
+      var id = mongoose.Types.ObjectId();
+
+      var user =  { 'id': id, 'username': username }
       socket.set('user', user , function (err) {
         if (err) { throw err; } 
         users.push(user);
@@ -36,7 +41,7 @@ var init = function(io) {
       socket.get('user', function(err, user) {
 
         if (user) {
-          delete users[user.id];
+          users.splice(users.indexOf(user), 1);
 
           io.sockets.emit('userquit', user);
           socket.broadcast.emit('serverMessage', {'username': user.username, 'content': 'User ' + user.username + ' disconnected'});
