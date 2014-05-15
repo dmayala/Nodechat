@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var _ = require('underscore');
 
 var users = [];
 var init = function(io) {
@@ -18,22 +19,22 @@ var init = function(io) {
             broadcast.to(room);
           }
 
-          io.sockets.emit('serverMessage', {'username': user.username, 'content': user.username + ' said: ' + content});
+          io.sockets.emit('serverMessage', {'username': _.escape(user.username), 'content': _.escape(user.username) + ' said: ' + _.escape(content)});
         });
 
       });
     });
     
-    socket.on('login', function (username ) {
+    socket.on('login', function (username) {
 
       var id = mongoose.Types.ObjectId();
 
-      var user =  { 'id': id, 'username': username }
+      var user =  { 'id': _.escape(id), 'username': _.escape(username) }
       socket.set('user', user , function (err) {
         if (err) { throw err; } 
         users.push(user);
         io.sockets.emit('newuser', user);
-        io.sockets.emit('serverMessage', {'username': username, 'content': 'User ' + username + ' logged in'});
+        io.sockets.emit('serverMessage', {'username': user.username, 'content': 'User ' + user.username + ' logged in'});
       });
     }); 
     

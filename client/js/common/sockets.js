@@ -7,7 +7,7 @@ ChatApp.module('Sockets',  function(Main, App, Backbone, Marionette, $, _) {
 
   socket.on('login', function() {
     var username = prompt('What username would you like to use?'); 
-    socket.emit('login', username);
+    socket.emit('login', _.escape(username));
   });
 
   socket.on('newuser', function(user) {
