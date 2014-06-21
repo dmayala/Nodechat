@@ -47,7 +47,7 @@ app.use(function(error, req, res, next) {
 // MongoDB
 var db = mongoose.connect(mongoUri);
 
-routes(app, io);
+routes(app, io, db);
 
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

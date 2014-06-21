@@ -1,5 +1,6 @@
-var mongoose = require('mongoose');
 var _ = require('underscore');
+var mongoose = require('mongoose');
+var MessageDAO = require('../models/message').MessageDAO;
 
 var users = [];
 var init = function(io) {
@@ -82,7 +83,9 @@ var init = function(io) {
 }
 
 
-function SocketHandler(io) {
+function SocketHandler(io, db) {
+  var messages = new MessageDAO(db);
+
   init(io);
 
   this.getUsers = function(req, res, next) {
