@@ -91,6 +91,12 @@ function SocketHandler(io, db) {
   this.getUsers = function(req, res, next) {
     res.json(users);
   }
+
+  this.getMessages = function (req, res, next) {
+    messages.getMessages(function(err, data) {
+      res.json(data);
+    });
+  }
 }
 
 module.exports = SocketHandler;
