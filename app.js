@@ -10,7 +10,13 @@ var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
-var mongoUri = 'mongodb://localhost/nodechat-dev';
+var mongoUri = (function() {
+  if ('production' == app.get('env')) {
+  	return process.env.MONGOHQ_URL;
+  }
+
+  return 'mongodb://localhost/nodechat-dev'
+})();
 
 app.engine('html', hbs.__express);
 
