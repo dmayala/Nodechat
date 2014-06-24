@@ -17,6 +17,10 @@ function MessageDAO(db) {
     MessageModel.findById(id, callback);
   };
 
+  this.saveMessage = function (message, callback) {
+    MessageModel.create(message, callback);
+  }
+
 }
 
 module.exports.MessageDAO = MessageDAO;

@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var MessageDAO = require('../models/message').MessageDAO;
 
 var users = [];
-var init = function(io) {
+var init = function(io, messages) {
   io.sockets.on('connection', function (socket) {
     socket.on('clientMessage', function(content) {
       socket.get('user', function (err, user) {
@@ -86,7 +86,7 @@ var init = function(io) {
 function SocketHandler(io, db) {
   var messages = new MessageDAO(db);
 
-  init(io);
+  init(io, messages);
 
   this.getUsers = function(req, res, next) {
     res.json(users);
