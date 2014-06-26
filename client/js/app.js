@@ -23,3 +23,5 @@ ChatApp.on('initialize:after', function(){
     }
   }
 });
+
+module.exports = ChatApp;
