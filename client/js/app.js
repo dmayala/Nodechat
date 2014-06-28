@@ -19,7 +19,7 @@ ChatApp.on('initialize:after', function(){
     Backbone.history.start();
 
     if(this.getCurrentRoute() == ''){
-      ChatApp.trigger('chat:show');
+      this.trigger('chat:show');
     }
   }
 });
