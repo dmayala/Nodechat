@@ -85,16 +85,14 @@
     <!-- Scripts !-->
     <script src="socket.io/socket.io.js"></script>
     <!-- bower:js -->
-    <script src="js/vendor/modernizr/modernizr.js"></script>
     <script src="js/vendor/jquery/dist/jquery.js"></script>
     <script src="js/vendor/underscore/underscore.js"></script>
     <script src="js/vendor/backbone/backbone.js"></script>
     <script src="js/vendor/backbone.babysitter/lib/backbone.babysitter.js"></script>
     <script src="js/vendor/backbone.wreqr/lib/backbone.wreqr.js"></script>
     <script src="js/vendor/marionette/lib/backbone.marionette.js"></script>
-    <script src="js/vendor/fastclick/lib/fastclick.js"></script>
-    <script src="js/vendor/jquery.cookie/jquery.cookie.js"></script>
-    <script src="js/vendor/foundation/js/foundation.min.js"></script>
+    <script src="js/vendor/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="js/vendor/jasny-bootstrap/dist/js/jasny-bootstrap.js"></script>
     <!-- endbower --> 
     <script src="js/app.js"></script>
     <script src="js/common/sockets.js"></script>
@@ -107,7 +105,7 @@
     <script src="js/apps/messaging/messaging.app.js"></script>
 
     <script>
-      $(document).foundation().ready(ChatApp.start());
+      $(ChatApp.start());
     </script>
   </body>
 </html>
