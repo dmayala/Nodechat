@@ -7,18 +7,14 @@ var init = function(io, messages) {
   io.sockets.on('connection', function (socket) {
     socket.on('clientMessage', function(content) {
       socket.get('user', function (err, user) {
-        if (!user.username) {
-          user.username = socket.id;
-        }
+        if (!user.username) { user.username = socket.id; }
 
         socket.get('room', function (err, room) {
           if (err) { throw err; }
           var broadcast = socket.broadcast;
           var message = content;
 
-          if (room) {
-            broadcast.to(room);
-          }
+          if (room) { broadcast.to(room); }
 
           io.sockets.emit('serverMessage', {'username': _.escape(user.username), 'content': _.escape(user.username) + ' said: ' + _.escape(content)});
         });
@@ -59,19 +55,13 @@ var init = function(io, messages) {
           if (err) { throw err;}
           socket.join(room);
 
-          if (oldRoom) {
-            socket.leave(oldRoom);
-          }
+          if (oldRoom) { socket.leave(oldRoom); }
           socket.get('username', function (err, username) {
-            if (!username) {
-              username = socket.id;
-            }
+            if (!username) { username = socket.id; }
           });
           socket.get('username', function (err, username) {
             socket.emit('serverMessage', {'username': username, 'content': 'You joined room ' + room});
-            if (!username) {
-              username = socket.id;
-            }
+            if (!username) { username = socket.id; }
             socket.broadcast.to(room).emit('serverMessage', {'username': username, 'content': 'User ' + username + ' joined this room'});
           });
         });
