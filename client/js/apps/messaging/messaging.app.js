@@ -1,3 +1,6 @@
+var Marionette = require('backbone.marionette');
+var App = require('../../app');
+
 ChatApp.module('MessagingApp', function(MessagingApp, App, Backbone, Marionette, $, _) {
 
   MessagingApp.Router = Marionette.AppRouter.extend({
