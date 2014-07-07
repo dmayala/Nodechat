@@ -55,12 +55,13 @@ module.exports = function(grunt) {
                     }
                 }
             },
-            src: ['src/js/app.js'],
+            src: ['client/js/app.js'],
             dest: '_dist/js/built.js'
       }
     }
   });
 
   // Load Tasks
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-bower-install');
 };
