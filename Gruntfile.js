@@ -5,10 +5,10 @@ module.exports = function(grunt) {
     bowerInstall: {
 
       target: {
-        src: [
-          'client/*.html'   // .html support...
-        ]
-      }  
+       src: [
+        'client/*.html'   // .html support...
+       ]
+      }
     },
 
     browserify: {
@@ -16,36 +16,36 @@ module.exports = function(grunt) {
             options: {
                 shim: {
                     jquery: {
-                        path: 'bower_components/jquery/jquery.js',
+                        path: 'client/js/vendor/jquery/dist/jquery.js',
                         exports: '$'
                     },
                     underscore: {
-                        path: 'bower_components/underscore/underscore.js',
+                        path: 'client/js/vendor/underscore/underscore.js',
                         exports: '_'
                     },
                     backbone: {
-                        path: 'bower_components/backbone/backbone.js',
+                        path: 'client/js/vendor/backbone/backbone.js',
                         exports: 'Backbone',
                         depends: {
                             underscore: 'underscore'
                         }
                     },
                     'backbone.babysitter': {
-                        path: 'bower_components/backbone.babysitter/lib/backbone.babysitter.js',
+                        path: 'client/js/vendor/backbone.babysitter/lib/backbone.babysitter.js',
                         exports: 'Backbone.Babysitter',
                         depends: {
                             backbone: 'Backbone'
                         }
                     },
                     'backbone.wreqr': {
-                        path: 'bower_components/backbone.wreqr/lib/backbone.wreqr.js',
+                        path: 'client/js/vendor/backbone.wreqr/lib/backbone.wreqr.js',
                         exports: 'Backbone.Wreqr',
                         depends: {
                             backbone: 'Backbone'
                         }
                     },
                     'backbone.marionette': {
-                        path: 'bower_components/backbone.marionette/lib/backbone.marionette.js',
+                        path: 'client/js/vendor/marionette/lib/backbone.marionette.js',
                         exports: 'Marionette',
                         depends: {
                             jquery: '$',
