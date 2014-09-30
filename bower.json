@@ -1,20 +1,23 @@
 {
-  "name": "nodechat",
-  "version": "0.0.0",
-  "homepage": "https://github.com/dmayala/Nodechat",
+  "name": "Nodechat",
+  "version": "1.0.0",
+  "authors": [
+    "Daniel Ayala <dmayala@csupomona.edu>"
+  ],
   "license": "MIT",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "js/vendor",
     "test",
-    "tests",
-    "client/js/vendor"
+    "tests"
   ],
   "dependencies": {
-    "marionette": "~1.8.3",
-    "jasny-bootstrap": "~3.1.3"
+    "jasny-bootstrap": "~3.1.3",
+    "backbone.marionette": "~2.1.0",
+    "backbone.localstorage": "~1.1.13",
+    "jquery.spinjs": "*",
+    "marionette.backbone.syphon": "~0.5.0",
+    "backbone.picky": "~0.2.0"
   }
 }
