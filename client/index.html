@@ -3,110 +3,53 @@
   <head>
     <meta charset="UTF-8">
     <title>Marionette Socketchat</title>
-    <link rel="stylesheet" href="js/vendor/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="js/vendor/jasny-bootstrap/dist/css/jasny-bootstrap.min.css">
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dist/css/jasny-bootstrap.min.css">
+    <link rel="stylesheet" href="dist/css/app.css">
   </head>
   <body>
-      <div class="off-canvas-wrap" data-offcanvas>
-        <div class="inner-wrap">
-          <nav class="tab-bar">
+    <div class="navmenu navmenu-default navmenu-fixed-left">
+      <a class="navmenu-brand" href="#">Project name</a>
+      <ul class="nav navmenu-nav">
+        <li><a href="../navmenu/">Slide in</a></li>
+        <li><a href="../navmenu-push/">Push</a></li>
+        <li class="active"><a href="./">Reveal</a></li>
+        <li><a href="../navbar-offcanvas/">Off canvas navbar</a></li>
+      </ul>
+      <ul class="nav navmenu-nav">
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <ul class="dropdown-menu navmenu-nav">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="#">Separated link</a></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
 
-            <section class="left-small">
-              <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
-            </section>
-
-            <section class="middle tab-bar-section">
-              <h1 class="title">Nodechat</h1>
-            </section>
-
-          </nav>
-
-          <aside class="left-off-canvas-menu">
-            <ul class="off-canvas-list">
-              <li><label>Rooms</label></li>
-              <li><a href="#">Main Room</a></li>
-              <li><a href="#">Room 2</a></li>
-              <li><label>Settings</label></li>
-              <li><a href="#">Sounds</a></li>
-            </ul>
-          </aside>
-
-          <section class="main-section">
-            <div class="row">
-              <div id="msgPanel" class="large-10 columns"></div>
-
-              <div id="users" class="large-2 columns"></div>
-            </div>
-          </section>
-
-        <a class="exit-off-canvas"></a>
-
-        </div>
+    <div class="canvas">
+      <div class="navbar navbar-default navbar-fixed-top">
+        <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
       </div>
 
-    <!-- Templates !-->
-    <script type="text/template" id="outMessageTmp">
-      <%- content %>
-    </script>
-
-    <script type="text/template" id="userListTemp">
-      <table>
-        <thead>
-          <tr>
-            <th>Users (<span class="js-usernum"></span>)</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </script>
-
-    <script type="text/template" id="userItem">
-      <%- username %>
-    </script>
-
-    <script type="text/template" id="msgInOptions">
-      <input type="text" id="input" placeholder="Send a message..." />
-    </script>
-
-    <script type="text/template" id="msgPanelTmp">
-      <div class="row">
-        <div id="msgOut">
-        </div>
+      <div class="container">
+        <h3>Content</h3>
       </div>
-      
-      <div class="row">
-        <div id="msgIn">
-        </div>
-      </div>
-    </script>
+     
+    </div>
     
-    <!-- Scripts !-->
-    <script src="socket.io/socket.io.js"></script>
-    <!-- bower:js -->
-    <script src="js/vendor/jquery/dist/jquery.js"></script>
-    <script src="js/vendor/underscore/underscore.js"></script>
-    <script src="js/vendor/backbone/backbone.js"></script>
-    <script src="js/vendor/backbone.babysitter/lib/backbone.babysitter.js"></script>
-    <script src="js/vendor/backbone.wreqr/lib/backbone.wreqr.js"></script>
-    <script src="js/vendor/marionette/lib/backbone.marionette.js"></script>
-    <script src="js/vendor/marionette/lib/core/amd/backbone.marionette.js"></script>
-    <script src="js/vendor/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="js/vendor/jasny-bootstrap/dist/js/jasny-bootstrap.js"></script>
-    <!-- endbower --> 
-    <script src="js/app.js"></script>
-    <script src="js/common/sockets.js"></script>
-    <script src="js/entities/message.js"></script>
-    <script src="js/entities/user.js"></script>
-    <script src="js/apps/messaging/panel/panel.view.js"></script>
-    <script src="js/apps/messaging/panel/panel.controller.js"></script>
-    <script src="js/apps/messaging/userlist/userlist.view.js"></script>
-    <script src="js/apps/messaging/userlist/userlist.controller.js"></script>
-    <script src="js/apps/messaging/messaging.app.js"></script>
-
-    <script>
-      $(ChatApp.start());
-    </script>
+    <script src="dist/js/app.js"></script>
   </body>
 </html>

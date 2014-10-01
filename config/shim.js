@@ -4,7 +4,13 @@ module.exports = {
   "bootstrap": { 
     "exports": "bootstrap",
     "depends": { 
-      "jquery":"$"
+      "jquery":"jQuery"
+    }
+  },
+  "jasny-bootstrap": {
+    "exports": "jasny",
+	"depends": { 
+      "bootstrap":"bootstrap"
     }
   },
   "backbone": { 
