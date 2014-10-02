@@ -7,7 +7,8 @@ port = Number(process.argv[3]) || 3000
 options =
   views:
     engines: html: require 'handlebars'
-    path: './views'
+    path: './client'
+    #path: './views'
 
 # create server
 server = new Hapi.Server host, port, options
@@ -21,12 +22,13 @@ server.route
 
 server.route
   method: 'GET'
-  path: '/public/{file*}'
+  path: '/dist/{file*}'
+  #path: '/public/{file*}'
   handler: directory: path: './client/dist'
 
 # register plugins
 server.pack.register [
-  { plugin: require './plugins/contact' }
+  { plugin: require './plugins/chatsocket' }
 ], (err) ->
   throw err if err
 

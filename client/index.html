@@ -49,7 +49,19 @@
       </div>
      
     </div>
-    
+
+    <script src="/socket.io/socket.io.js"></script>
     <script src="dist/js/app.js"></script>
+    <script>
+      var socket = io();
+      var name = prompt('Enter name') || 'Unknown';
+      socket.emit('login', name);
+
+      socket.on('serverMessage', function (data) {
+        console.log(data);
+      });
+
+      socket.emit('clientMessage', 'this is a test');
+    </script>
   </body>
 </html>
