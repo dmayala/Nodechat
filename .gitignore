@@ -5,6 +5,9 @@
 # npm packages
 node_modules
 
+# old js
+client/src/oldjs/
+
 # bower packages
 client/src/js/vendor/
 client/src/css/vendor/

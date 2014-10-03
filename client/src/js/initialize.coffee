@@ -1,1 +1,4 @@
-require 'jasny-bootstrap'
+$ = require 'jquery'
+App = require './app'
+
+$(App.start())
