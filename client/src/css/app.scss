@@ -44,8 +44,11 @@ html, body {
   max-width: none;
 }
 
-#msgOut {
+.adjustedHeight {
   height: 85vh;
+}
+
+#msgOut {
   overflow-y:auto;
 }
 
