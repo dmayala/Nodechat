@@ -5,7 +5,7 @@ Radio = require '../../../radio'
 getMessageEntity = (id) ->
   message = new Message id: id
   defer = $.Deferred()
-  contact.fetch
+  message.fetch
     success: (data) -> defer.resolve data
     error: (data) -> defer.resolve undefined
   return defer.promise()
@@ -13,8 +13,8 @@ getMessageEntity = (id) ->
 getMessageEntities = ->
   messages = new Messages()
   defer = $.Deferred()
-  messages.fetch success: (data) ->
-    defer.resolve data
+  messages.fetch
+    success: (data) -> defer.resolve data
   return defer.promise()
 
 MessageAPI =

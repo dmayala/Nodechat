@@ -1,4 +1,5 @@
 Backbone = require 'backbone'
+configureStorage = require '../../config/storage/localstorage'
 
 class Message extends Backbone.Model
   urlRoot: 'messages',
@@ -6,4 +7,5 @@ class Message extends Backbone.Model
     'author': '',
     'text': ''
 
+configureStorage Message
 module.exports = Message
