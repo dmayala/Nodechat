@@ -20,6 +20,11 @@ showMessaging = ->
       newMessage = new Message text: outMessage
       if newMessage.save()
         messages.add newMessage
+        Radio.vent.trigger 'global', 'socket:outboundMsg', newMessage.get 'text'
+
+    Radio.vent.on 'global', 'socket:inboundMsg', (inMessage) ->
+      incomingMessage = new Message text: inMessage
+      messages.add incomingMessage
 
     @listenTo layout, 'show', ->
       layout.messagesRegion.show messagesShowView

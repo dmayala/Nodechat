@@ -23,18 +23,12 @@ exports.register = (plugin, options, next) ->
       #socket.set 'user', user, (err) ->
       #  throw err if err
       users.push user
-      io.sockets.emit 'serverMessage', "#{user.username} has logged in"
+      io.emit 'serverMessage', "#{user.username} has logged in"
 
     # receiving/transmitting messages
-    socket.on 'clientMessage', (content) ->
-      # socket.get 'user', (err, user) ->
-      #   throw err if err
-      #   broadcast = socket.broadcast
-      #
-      io.sockets.emit 'serverMessage',
-        username: users[0].username
-        content: content
-
+    socket.on 'clientMessage', (text) -> 
+      socket.broadcast.emit 'serverMessage', text
+   
   next()
 
 exports.register.attributes = pkg: require './package.json'
