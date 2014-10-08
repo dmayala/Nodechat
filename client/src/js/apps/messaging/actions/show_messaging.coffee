@@ -17,13 +17,15 @@ showMessaging = ->
     messagesShowView = new MessagesShowView collection: messages
 
     @listenTo layout, 'message:outbound', (outMessage) -> 
-      newMessage = new Message text: outMessage
+      newMessage = new Message
+        author: 'You'
+        text: outMessage
       if newMessage.save()
         messages.add newMessage
         Radio.vent.trigger 'global', 'socket:outboundMsg', newMessage.get 'text'
 
     Radio.vent.on 'global', 'socket:inboundMsg', (inMessage) ->
-      incomingMessage = new Message text: inMessage
+      incomingMessage = new Message inMessage
       messages.add incomingMessage
 
     @listenTo layout, 'show', ->

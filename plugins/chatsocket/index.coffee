@@ -3,8 +3,16 @@ _ = require 'underscore'
 mongoose = require 'mongoose'
 socketIO = require 'socket.io'
 
-# track users
-users = []
+# track names
+names = []
+
+# randomly generate names
+createXNames = (x) ->
+  if names.length <= x
+    candidate = "Guest#{Math.floor(Math.random() * (x - 1) + 1)}"
+    # rerun createXNames if name already taken
+    if (names.indexOf(candidate) > -1) then createXNames(x) else candidate
+  else "Guest"
 
 exports.register = (plugin, options, next) ->
 
@@ -12,22 +20,32 @@ exports.register = (plugin, options, next) ->
 
   io.sockets.on 'connection', (socket) ->
 
+    # create/store username associated with this connection
+    socketUsername = createXNames(10000)
+    names.push socketUsername
+
     # login
-    socket.on 'login', (username) ->
+    socket.on 'login', (candidateName) ->
       id = mongoose.Types.ObjectId()
 
       user =
         id: id
-        username: username
+        name: socketUsername
 
-      #socket.set 'user', user, (err) ->
-      #  throw err if err
-      users.push user
-      io.emit 'serverMessage', "#{user.username} has logged in"
+      io.emit 'serverMessage', 
+        author: 'SERVER'
+        text: "#{user.name} has logged in"
+
+    # disconnect
+    socket.on 'disconnect', ->
+      found = names.indexOf(socketUsername)
+      names.splice(found, 1) if found > -1
 
     # receiving/transmitting messages
     socket.on 'clientMessage', (text) -> 
-      socket.broadcast.emit 'serverMessage', text
+      socket.broadcast.emit 'serverMessage',
+        author: socketUsername
+        text: text
    
   next()
 
