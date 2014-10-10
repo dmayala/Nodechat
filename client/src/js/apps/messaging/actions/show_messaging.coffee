@@ -18,6 +18,7 @@ showMessaging = ->
 
     @listenTo layout, 'message:outbound', (outMessage) -> 
       newMessage = new Message
+        timestamp: new Date()
         author: 'You'
         text: outMessage
       if newMessage.save()

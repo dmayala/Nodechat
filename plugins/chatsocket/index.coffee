@@ -1,7 +1,7 @@
 # dependencies
-_ = require 'underscore'
 mongoose = require 'mongoose'
 socketIO = require 'socket.io'
+moment = require 'moment'
 
 # track names
 names = []
@@ -32,7 +32,8 @@ exports.register = (plugin, options, next) ->
         id: id
         name: socketUsername
 
-      io.emit 'serverMessage', 
+      io.emit 'serverMessage',
+        timestamp: moment()
         author: 'SERVER'
         text: "#{user.name} has logged in"
 
@@ -44,6 +45,7 @@ exports.register = (plugin, options, next) ->
     # receiving/transmitting messages
     socket.on 'clientMessage', (text) -> 
       socket.broadcast.emit 'serverMessage',
+        timestamp: moment()
         author: socketUsername
         text: text
    

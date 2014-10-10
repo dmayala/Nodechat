@@ -1,8 +1,9 @@
-mongoose = require mongoose
+mongoose = require 'mongoose'
 Schema = mongoose.Schema
 
 # Schema
 MessageSchema = new Schema
+  'timestamp': Date
   'author': String
   'text': String
 

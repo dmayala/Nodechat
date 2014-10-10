@@ -28,6 +28,7 @@
   "dependencies": {
     "handlebars": "^2.0.0-beta.1",
     "hapi": "^6.7.1",
+    "moment": "^2.8.3",
     "mongoose": "^3.8.16",
     "socket.io": "^1.1.0",
     "underscore": "^1.7.0"
