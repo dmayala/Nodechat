@@ -7,11 +7,14 @@ MessagingModule = require './apps/messaging/module'
 SocketsModule = require './apps/sockets/module'
 
 # create application namespace
-window.App = new Marionette.Application();
+App = new Marionette.Application();
 
 # add regions
 App.addRegions
   messagingRegion: '#messaging-region'
+  dialogRegion:
+    selector: '#dialog-region',
+    regionClass: require './common/regions/dialog'
 
 # add modules
 App.module 'messaging', MessagingModule

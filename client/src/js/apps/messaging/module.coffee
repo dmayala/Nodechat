@@ -9,6 +9,7 @@ class Module extends Marionette.Module
   startMediator: ->
     @controller = new Controller
       messagingRegion: @app.messagingRegion
+      dialogRegion: @app.dialogRegion
 
     router = new Router { controller: @controller }
 
