@@ -6,9 +6,12 @@ Message = require '../models/message'
 # require views
 LayoutShowView = require '../views/show/layout'
 MessagesShowView = require '../views/show/messages'
+UserEditView = require '../views/edit/user'
 
 showMessaging = ->
   Backbone.history.navigate 'messaging'
+  Radio.commands.execute 'global', 'set:active:menu', 'messaging'
+
   layout = new LayoutShowView()
 
   fetchingMessages = Radio.reqres.request 'global', 'message:entities'
@@ -28,6 +31,9 @@ showMessaging = ->
     Radio.vent.on 'global', 'socket:inboundMsg', (inMessage) ->
       incomingMessage = new Message inMessage
       messages.add incomingMessage
+
+    Radio.vent.on 'global', 'username:change', =>
+      @options.dialogRegion.show new UserEditView()
 
     @listenTo layout, 'show', ->
       layout.messagesRegion.show messagesShowView
