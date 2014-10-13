@@ -20,5 +20,8 @@
     "marionette.backbone.syphon": "~0.5.0",
     "backbone.picky": "~0.2.0",
     "moment": "~2.8.3"
+  },
+  "resolutions": {
+    "backbone": "1.0.0 - 1.1.2"
   }
 }
