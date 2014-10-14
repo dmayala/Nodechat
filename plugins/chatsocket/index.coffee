@@ -37,6 +37,10 @@ exports.register = (plugin, options, next) ->
         author: 'SERVER'
         text: "#{user.name} has logged in"
 
+    # change name
+    socket.on 'change:name', (user) ->
+      socketUsername = user.name
+
     # disconnect
     socket.on 'disconnect', ->
       found = names.indexOf(socketUsername)

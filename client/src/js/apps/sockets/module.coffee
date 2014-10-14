@@ -11,4 +11,8 @@ class Module extends Marionette.Module
   Radio.vent.on 'global', 'socket:outboundMsg', (message) ->
     socket.emit 'clientMessage', message
 
+  Radio.vent.on 'global', 'socket:changeName', (user) ->
+    socket.emit 'change:name', user
+
+
 module.exports = Module

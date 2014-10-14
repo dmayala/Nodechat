@@ -33,7 +33,13 @@ showMessaging = ->
       messages.add incomingMessage
 
     Radio.vent.on 'global', 'username:change', =>
-      @options.dialogRegion.show new UserEditView()
+      view = new UserEditView()
+
+      view.on 'form:submit', (data) =>
+        Radio.vent.trigger 'global', 'socket:changeName', data
+        @options.dialogRegion.empty()
+
+      @options.dialogRegion.show view
 
     @listenTo layout, 'show', ->
       layout.messagesRegion.show messagesShowView

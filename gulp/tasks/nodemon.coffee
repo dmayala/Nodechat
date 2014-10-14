@@ -5,7 +5,8 @@ browserSync = require 'browser-sync'
 gulp.task 'nodemon', ->
   nodemon
     script: 'server.coffee'
-    ignore: ['./client']
+    ext: 'coffee'
+    ignore: ['client/*', 'node_modules/*']
   .on 'restart', ->
     setTimeout ->
       browserSync.reload stream: false
