@@ -3,6 +3,8 @@ Marionette = require 'backbone.marionette'
 class Layout extends Marionette.LayoutView
   template: require '../templates/show/layout'
 
+  className: 'col-md-12 maxheight'
+    
   regions:
     messagesRegion: '#messages-region'
     usersRegion: '#users-region'

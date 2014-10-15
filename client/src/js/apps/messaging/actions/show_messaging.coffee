@@ -6,6 +6,7 @@ Message = require '../models/message'
 # require views
 LayoutShowView = require '../views/show/layout'
 MessagesShowView = require '../views/show/messages'
+UsersShowView = require '../views/show/users'
 UserEditView = require '../views/edit/user'
 
 showMessaging = ->
@@ -15,9 +16,11 @@ showMessaging = ->
   layout = new LayoutShowView()
 
   fetchingMessages = Radio.reqres.request 'global', 'message:entities'
+  fetchingUsers = Radio.reqres.request 'global', 'user:entities'
 
-  $.when(fetchingMessages).done (messages) =>
+  $.when(fetchingMessages, fetchingUsers).done (messages, users) =>
     messagesShowView = new MessagesShowView collection: messages
+    usersShowView = new UsersShowView collection: users
 
     @listenTo layout, 'message:outbound', (outMessage) -> 
       newMessage = new Message
@@ -32,7 +35,7 @@ showMessaging = ->
       incomingMessage = new Message inMessage
       messages.add incomingMessage
 
-    Radio.vent.on 'global', 'username:change', =>
+    Radio.vent.on 'global', 'nickname:change', =>
       view = new UserEditView()
 
       view.on 'form:submit', (data) =>
@@ -43,6 +46,7 @@ showMessaging = ->
 
     @listenTo layout, 'show', ->
       layout.messagesRegion.show messagesShowView
+      layout.usersRegion.show usersShowView
 
     @options.messagingRegion.show layout
 

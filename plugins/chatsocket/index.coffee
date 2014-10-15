@@ -21,8 +21,8 @@ exports.register = (plugin, options, next) ->
   io.sockets.on 'connection', (socket) ->
 
     # create/store username associated with this connection
-    socketUsername = createXNames(10000)
-    names.push socketUsername
+    socketNickname = createXNames(10000)
+    names.push socketNickname
 
     # login
     socket.on 'login', (candidateName) ->
@@ -30,27 +30,27 @@ exports.register = (plugin, options, next) ->
 
       user =
         id: id
-        name: socketUsername
+        nickname: socketNickname
 
       io.emit 'serverMessage',
         timestamp: moment()
         author: 'SERVER'
-        text: "#{user.name} has logged in"
+        text: "#{user.nickname} has logged in"
 
     # change name
     socket.on 'change:name', (user) ->
-      socketUsername = user.name
+      socketNickname = user.nickname
 
     # disconnect
     socket.on 'disconnect', ->
-      found = names.indexOf(socketUsername)
+      found = names.indexOf(socketNickname)
       names.splice(found, 1) if found > -1
 
     # receiving/transmitting messages
     socket.on 'clientMessage', (text) -> 
       socket.broadcast.emit 'serverMessage',
         timestamp: moment()
-        author: socketUsername
+        author: socketNickname
         text: text
    
   next()

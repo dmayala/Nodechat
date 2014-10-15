@@ -7,8 +7,8 @@ port = Number(process.argv[3]) || 3000
 options =
   views:
     engines: html: require 'handlebars'
-    path: './client'
-    #path: './views'
+    #path: './client'
+    path: './views'
 
 # create server
 server = new Hapi.Server host, port, options
