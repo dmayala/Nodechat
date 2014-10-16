@@ -1,3 +1,3 @@
 gulp = require 'gulp'
 
-gulp.task 'build', ['browserify', 'sass']
+gulp.task 'build', ['browserify', 'sass', 'pipeVendorCSS']
