@@ -2,8 +2,8 @@
 Hapi = require 'hapi'
 
 # initial configuration 
-host = process.argv[2] || 'localhost'
-port = Number(process.argv[3]) || 3000
+host = process.argv[2] or '0.0.0.0'
+port = Number(process.argv[3] or process.env.PORT) or 5000
 options =
   views:
     engines: html: require 'handlebars'
