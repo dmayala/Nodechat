@@ -1,18 +1,7 @@
 # dependencies
-mongoose = require 'mongoose'
 socketIO = require 'socket.io'
 moment = require 'moment'
-
-# track names
-names = []
-
-# randomly generate names
-createXNames = (x) ->
-  if names.length <= x
-    candidate = "Guest#{Math.floor(Math.random() * (x - 1) + 1)}"
-    # rerun createXNames if name already taken
-    if (names.indexOf(candidate) > -1) then createXNames(x) else candidate
-  else "Guest"
+UserEntity = require '../../entities/local_user'
 
 exports.register = (plugin, options, next) ->
 
@@ -21,36 +10,31 @@ exports.register = (plugin, options, next) ->
   io.sockets.on 'connection', (socket) ->
 
     # create/store username associated with this connection
-    socketNickname = createXNames(10000)
-    names.push socketNickname
+    socketUser = null
 
     # login
     socket.on 'login', (candidateName) ->
-      id = mongoose.Types.ObjectId()
 
-      user =
-        id: id
-        nickname: socketNickname
+      socketUser = UserEntity.createUser()
 
       io.emit 'serverMessage',
         timestamp: moment()
         author: 'SERVER'
-        text: "#{user.nickname} has logged in"
+        text: "#{socketUser.nickname} has logged in"
 
     # change name
     socket.on 'change:name', (user) ->
-      socketNickname = user.nickname
+      socketUser = UserEntity.updateUser socketUser.id, nickname: user.nickname
 
     # disconnect
     socket.on 'disconnect', ->
-      found = names.indexOf(socketNickname)
-      names.splice(found, 1) if found > -1
-
+      socketUser = UserEntity.deleteUser(socketUser.id) if socketUser
+      
     # receiving/transmitting messages
     socket.on 'clientMessage', (text) -> 
       socket.broadcast.emit 'serverMessage',
         timestamp: moment()
-        author: socketNickname
+        author: socketUser.nickname
         text: text
    
   next()
