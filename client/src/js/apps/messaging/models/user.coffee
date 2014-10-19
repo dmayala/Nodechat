@@ -1,10 +1,8 @@
 Backbone = require 'backbone'
-configureStorage = require '../../config/storage/localstorage'
 
 class User extends Backbone.Model
-  urlRoot: 'users',
+  urlRoot: 'api/users',
   defaults:
-    'nickname': ''
+    'nickname': 'Guest'
 
-configureStorage User
 module.exports = User

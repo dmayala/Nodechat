@@ -28,7 +28,8 @@ server.route
 
 # register plugins
 server.pack.register [
-  { plugin: require './plugins/chatsocket' }
+  { plugin: require './plugins/chatsocket' },
+  { plugin: require './plugins/users' }
 ], (err) ->
   throw err if err
 
