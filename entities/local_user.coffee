@@ -13,29 +13,31 @@ createXNames = (x) ->
 
 class User
   constructor: (options = {}) ->
-    @id = mongoose.Types.ObjectId()
+    @id = mongoose.Types.ObjectId().toString()
     @nickname = options.nickname or createXNames(10000)
 
 UserAPI =
-  createUser: (options = {}) -> 
+  createUser: (options = {}, cb) -> 
     user = new User options
     usersRepo.push user
-    return user
+    cb null, user
 
-  getUsers: -> usersRepo
+  getUsers: (cb) -> cb null, usersRepo
 
-  getUser: (id) ->  _.findWhere usersRepo, id: id
+  getUser: (id, cb) -> cb null, _.findWhere usersRepo, id: id
 
-  updateUser: (id, options = {}) ->
+  updateUser: (id, options = {}, cb) ->
+    @getUser id, (err, user) ->
 
-    if options.nickname && isNameTaken(options.nickname)
-      # return unedited user for now
-      return @getUser(id)
+      if options.nickname && isNameTaken options.nickname
+        return cb null, user
 
-    _.extend @getUser(id), options
+      cb(null, _.extend user, options) unless err
 
-  deleteUser: (id) -> 
-    usersRepo.splice _.indexOf(usersRepo, @getUser(id)), 1
-    return null
+  deleteUser: (id, cb) -> 
+    @getUser id, (err, user) ->
+      usersRepo.splice(_.indexOf(usersRepo, user), 1) unless err
+      cb null, null
+
 
 module.exports = UserAPI

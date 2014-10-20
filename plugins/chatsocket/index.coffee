@@ -15,20 +15,25 @@ exports.register = (plugin, options, next) ->
     # login
     socket.on 'login', (candidateName) ->
 
-      socketUser = UserEntity.createUser()
+      UserEntity.createUser {}, (err, user) ->
 
-      io.emit 'serverMessage',
-        timestamp: moment()
-        author: 'SERVER'
-        text: "#{socketUser.nickname} has logged in"
+        socketUser = user
+
+        io.emit 'serverMessage',
+          timestamp: moment()
+          author: 'SERVER'
+          text: "#{socketUser.nickname} has logged in"
 
     # change name
     socket.on 'change:name', (user) ->
-      socketUser = UserEntity.updateUser socketUser.id, nickname: user.nickname
+      UserEntity.updateUser socketUser.id, nickname: user.nickname, (err, user) ->
+        socketUser = user unless err
 
     # disconnect
     socket.on 'disconnect', ->
-      socketUser = UserEntity.deleteUser(socketUser.id) if socketUser
+      if socketUser
+        UserEntity.deleteUser socketUser.id, (err, user) ->
+          socketUser = user unless err
       
     # receiving/transmitting messages
     socket.on 'clientMessage', (text) -> 
