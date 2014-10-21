@@ -6,6 +6,7 @@ class Module extends Marionette.Module
   socket.emit 'login'
 
   socket.on 'serverMessage', (message) ->
+    Radio.vent.trigger 'global', 'socket:newUser', message.newUser
     Radio.vent.trigger 'global', 'socket:inboundMsg', message
 
   Radio.vent.on 'global', 'socket:outboundMsg', (message) ->

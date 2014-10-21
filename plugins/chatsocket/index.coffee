@@ -23,6 +23,7 @@ exports.register = (plugin, options, next) ->
           timestamp: moment()
           author: 'SERVER'
           text: "#{socketUser.nickname} has logged in"
+          newUser: socketUser
 
     # change name
     socket.on 'change:name', (user) ->

@@ -31,6 +31,9 @@ showMessaging = ->
         messages.add newMessage
         Radio.vent.trigger 'global', 'socket:outboundMsg', newMessage.get 'text'
 
+    Radio.vent.on 'global', 'socket:newUser', (newUser) ->
+      users.add newUser
+
     Radio.vent.on 'global', 'socket:inboundMsg', (inMessage) ->
       incomingMessage = new Message inMessage
       messages.add incomingMessage

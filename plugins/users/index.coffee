@@ -15,7 +15,16 @@ exports.register = (plugin, options, next) ->
     handler: (request, reply) -> 
       UserEntity.getUser request.params.id, (err, user) ->
         reply err or user
-         
+
+  ###
+  plugin.route
+    method: 'POST'
+    path: '/api/users'
+    handler: (request, reply) -> 
+      UserEntity.createUser request.payload, (err, user) ->
+        reply err or user
+  ###
+               
   next()
 
 exports.register.attributes = pkg: require './package.json'
