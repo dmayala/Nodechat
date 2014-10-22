@@ -25,7 +25,7 @@ showMessaging = ->
     @listenTo layout, 'message:outbound', (outMessage) -> 
       newMessage = new Message
         timestamp: new Date()
-        author: 'You'
+        author: 'Guest'
         text: outMessage
       if newMessage.save()
         messages.add newMessage
@@ -33,6 +33,14 @@ showMessaging = ->
 
     Radio.vent.on 'global', 'socket:newUser', (newUser) ->
       users.add newUser
+
+    Radio.vent.on 'global', 'socket:changeUser', (changedUser) ->
+      user = users.get changedUser.id
+      user.set changedUser
+      users.trigger 'reset'
+
+    Radio.vent.on 'global', 'socket:leaveUser', (id) ->
+      users.remove users.get id
 
     Radio.vent.on 'global', 'socket:inboundMsg', (inMessage) ->
       incomingMessage = new Message inMessage

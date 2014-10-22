@@ -27,14 +27,27 @@ exports.register = (plugin, options, next) ->
 
     # change name
     socket.on 'change:name', (user) ->
+      oldnick = socketUser.nickname
       UserEntity.updateUser socketUser.id, nickname: user.nickname, (err, user) ->
         socketUser = user unless err
+        io.emit 'change:name:success', 
+          timestamp: moment()
+          author: 'SERVER'
+          text: "#{oldnick} will now be known as #{socketUser.nickname}"
+          user: socketUser
+
 
     # disconnect
     socket.on 'disconnect', ->
       if socketUser
         UserEntity.deleteUser socketUser.id, (err, user) ->
-          socketUser = user unless err
+          unless err
+            io.emit 'leave', 
+              timestamp: moment()
+              author: 'SERVER'
+              text: "#{socketUser.nickname} has disconnected"
+              user: socketUser
+            socketUser = user
       
     # receiving/transmitting messages
     socket.on 'clientMessage', (text) -> 
