@@ -17,15 +17,20 @@ showMessaging = ->
 
   fetchingMessages = Radio.reqres.request 'global', 'message:entities'
   fetchingUsers = Radio.reqres.request 'global', 'user:entities'
+  personalId = ''
+
+  Radio.vent.on 'global', 'messaging:personalId', (id) ->
+    personalId = id
 
   $.when(fetchingMessages, fetchingUsers).done (messages, users) =>
+
     messagesShowView = new MessagesShowView collection: messages
     usersShowView = new UsersShowView collection: users
 
     @listenTo layout, 'message:outbound', (outMessage) -> 
       newMessage = new Message
         timestamp: new Date()
-        author: 'Guest'
+        author: (users.get personalId).get 'nickname'
         text: outMessage
       if newMessage.save()
         messages.add newMessage
@@ -51,6 +56,7 @@ showMessaging = ->
 
       view.on 'form:submit', (data) =>
         Radio.vent.trigger 'global', 'socket:changeName', data
+        
         @options.dialogRegion.empty()
 
       @options.dialogRegion.show view

@@ -5,6 +5,9 @@ class Module extends Marionette.Module
   socket = io();
   socket.emit 'login'
 
+  socket.on 'setPersonalId', (id) ->
+    Radio.vent.trigger 'global', 'messaging:personalId', id
+
   socket.on 'serverMessage', (message) ->
     Radio.vent.trigger 'global', 'socket:newUser', message.newUser
     Radio.vent.trigger 'global', 'socket:inboundMsg', message

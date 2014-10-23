@@ -19,6 +19,8 @@ exports.register = (plugin, options, next) ->
 
         socketUser = user
 
+        socket.emit 'setPersonalId', socketUser.id
+
         io.emit 'serverMessage',
           timestamp: moment()
           author: 'SERVER'
