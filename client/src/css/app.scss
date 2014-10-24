@@ -1,4 +1,7 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:300);
+
 html, body {
+  font-family: 'Roboto', sans-serif;
   height: 100%;
 }
 
@@ -9,6 +12,49 @@ html, body {
 
 .navmenu {
   z-index: 1;
+}
+
+.navmenu-default {
+  background: #c7d1d8; /* Old browsers */
+  background: -moz-linear-gradient(top, #c7d1d8 0%, #9b98ba 0%, #58498d 0%, #55468a 0%, #54468a 1%, #55488c 1%, #53478b 2%, #544a8e 4%, #53498d 6%, #514b8f 6%, #524a8e 7%, #504c90 8%, #4f4c90 11%, #4d4f93 13%, #4b4e92 16%, #4c5094 17%, #44579b 29%, #3d5b9d 37%, #3e5a9f 38%, #3c5c9f 39%, #3d5da1 41%, #385fa1 46%, #3562a7 54%, #3066a8 58%, #3065aa 61%, #2d68ab 62%, #2e69ab 65%, #266eb1 74%, #256fb2 79%, #2371b4 79%, #2172b5 84%, #1e74b8 86%, #1c76b9 93%, #1a78bb 93%, #1b77ba 95%, #1979bc 95%, #1978bb 96%, #177cbf 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c7d1d8), color-stop(0%,#9b98ba), color-stop(0%,#58498d), color-stop(0%,#55468a), color-stop(1%,#54468a), color-stop(1%,#55488c), color-stop(2%,#53478b), color-stop(4%,#544a8e), color-stop(6%,#53498d), color-stop(6%,#514b8f), color-stop(7%,#524a8e), color-stop(8%,#504c90), color-stop(11%,#4f4c90), color-stop(13%,#4d4f93), color-stop(16%,#4b4e92), color-stop(17%,#4c5094), color-stop(29%,#44579b), color-stop(37%,#3d5b9d), color-stop(38%,#3e5a9f), color-stop(39%,#3c5c9f), color-stop(41%,#3d5da1), color-stop(46%,#385fa1), color-stop(54%,#3562a7), color-stop(58%,#3066a8), color-stop(61%,#3065aa), color-stop(62%,#2d68ab), color-stop(65%,#2e69ab), color-stop(74%,#266eb1), color-stop(79%,#256fb2), color-stop(79%,#2371b4), color-stop(84%,#2172b5), color-stop(86%,#1e74b8), color-stop(93%,#1c76b9), color-stop(93%,#1a78bb), color-stop(95%,#1b77ba), color-stop(95%,#1979bc), color-stop(96%,#1978bb), color-stop(100%,#177cbf)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #c7d1d8 0%,#9b98ba 0%,#58498d 0%,#55468a 0%,#54468a 1%,#55488c 1%,#53478b 2%,#544a8e 4%,#53498d 6%,#514b8f 6%,#524a8e 7%,#504c90 8%,#4f4c90 11%,#4d4f93 13%,#4b4e92 16%,#4c5094 17%,#44579b 29%,#3d5b9d 37%,#3e5a9f 38%,#3c5c9f 39%,#3d5da1 41%,#385fa1 46%,#3562a7 54%,#3066a8 58%,#3065aa 61%,#2d68ab 62%,#2e69ab 65%,#266eb1 74%,#256fb2 79%,#2371b4 79%,#2172b5 84%,#1e74b8 86%,#1c76b9 93%,#1a78bb 93%,#1b77ba 95%,#1979bc 95%,#1978bb 96%,#177cbf 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #c7d1d8 0%,#9b98ba 0%,#58498d 0%,#55468a 0%,#54468a 1%,#55488c 1%,#53478b 2%,#544a8e 4%,#53498d 6%,#514b8f 6%,#524a8e 7%,#504c90 8%,#4f4c90 11%,#4d4f93 13%,#4b4e92 16%,#4c5094 17%,#44579b 29%,#3d5b9d 37%,#3e5a9f 38%,#3c5c9f 39%,#3d5da1 41%,#385fa1 46%,#3562a7 54%,#3066a8 58%,#3065aa 61%,#2d68ab 62%,#2e69ab 65%,#266eb1 74%,#256fb2 79%,#2371b4 79%,#2172b5 84%,#1e74b8 86%,#1c76b9 93%,#1a78bb 93%,#1b77ba 95%,#1979bc 95%,#1978bb 96%,#177cbf 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #c7d1d8 0%,#9b98ba 0%,#58498d 0%,#55468a 0%,#54468a 1%,#55488c 1%,#53478b 2%,#544a8e 4%,#53498d 6%,#514b8f 6%,#524a8e 7%,#504c90 8%,#4f4c90 11%,#4d4f93 13%,#4b4e92 16%,#4c5094 17%,#44579b 29%,#3d5b9d 37%,#3e5a9f 38%,#3c5c9f 39%,#3d5da1 41%,#385fa1 46%,#3562a7 54%,#3066a8 58%,#3065aa 61%,#2d68ab 62%,#2e69ab 65%,#266eb1 74%,#256fb2 79%,#2371b4 79%,#2172b5 84%,#1e74b8 86%,#1c76b9 93%,#1a78bb 93%,#1b77ba 95%,#1979bc 95%,#1978bb 96%,#177cbf 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #c7d1d8 0%,#9b98ba 0%,#58498d 0%,#55468a 0%,#54468a 1%,#55488c 1%,#53478b 2%,#544a8e 4%,#53498d 6%,#514b8f 6%,#524a8e 7%,#504c90 8%,#4f4c90 11%,#4d4f93 13%,#4b4e92 16%,#4c5094 17%,#44579b 29%,#3d5b9d 37%,#3e5a9f 38%,#3c5c9f 39%,#3d5da1 41%,#385fa1 46%,#3562a7 54%,#3066a8 58%,#3065aa 61%,#2d68ab 62%,#2e69ab 65%,#266eb1 74%,#256fb2 79%,#2371b4 79%,#2172b5 84%,#1e74b8 86%,#1c76b9 93%,#1a78bb 93%,#1b77ba 95%,#1979bc 95%,#1978bb 96%,#177cbf 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c7d1d8', endColorstr='#177cbf',GradientType=0 );
+}
+
+.navmenu-default {
+  .navmenu-nav {
+
+    padding: 0;
+
+    li>a {
+      color: #fff;
+      &:hover {
+        color: #22A5D3;
+      }
+    }
+
+    .active {
+      a {
+        color: #fff;
+        background-color: transparent;
+        &:hover {
+          color: #22A5D3;
+          background-color: transparent;
+        }
+      }
+    }
+
+  }
+  .navmenu-brand {
+    color: #fff;
+    &:hover {
+      color: #22A5D3;
+    }
+  }
 }
 
 .canvas {
@@ -55,4 +101,8 @@ html, body {
 
 .maxheight {
   height: 100%;
+}
+
+#messages-region {
+  padding-top: 15px;
 }

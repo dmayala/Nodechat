@@ -1,7 +1,7 @@
 Marionette = require 'backbone.marionette'
 
 class Messages extends Marionette.CollectionView
-  className: 'scrollable maxheight'
+  className: 'row scrollable maxheight'
   childView: require './message'
 
   initialize: ->
