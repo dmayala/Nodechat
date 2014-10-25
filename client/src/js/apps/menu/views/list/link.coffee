@@ -8,6 +8,8 @@ class Link extends Marionette.ItemView
     'click a': 'navigate'
 
   onRender: ->
-    @$el.addClass('active') if @model.selected
+    if @model.selected
+      @$el.addClass('active') 
+      @$el.find('div').show()
 
 module.exports = Link

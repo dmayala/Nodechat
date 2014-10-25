@@ -2,18 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Marionette Socketchat</title>
+    <title>Nodechat</title>
     <link rel="stylesheet" href="dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="dist/css/jasny-bootstrap.min.css">
-    <link rel="stylesheet" href="dist/css/app.css">
+    <link href="dist/css/ripples.min.css" rel="stylesheet">
+    <link href="dist/css/material-wfont.min.css" rel="stylesheet">
+    <link href="dist/css/app.css" rel="stylesheet">
   </head>
   <body>
     
-    <div class="maxheight">
-      <div id="menu-region" class="col-xs-3 maxheight"></div>
-      <div id="messaging-region" class="col-xs-9 maxheight"></div>
-    </div>
-
+    <div id="menu-region"></div>   
+    <div id="messaging-region" class="col-xs-12 maxheight"></div>
     <div id="dialog-region" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
     <script src="socket.io/socket.io.js"></script>

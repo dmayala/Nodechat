@@ -1,4 +1,4 @@
-require 'jasny-bootstrap'
+require 'material-bootstrap'
 App = require './app'
 
 $(App.start())

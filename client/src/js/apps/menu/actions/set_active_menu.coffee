@@ -1,7 +1,7 @@
 Radio = require '../../../radio'
 
 setActiveMenu = (linkUrl) ->
-  links = Radio.reqres.request 'global', 'link:entities'
+  links = Radio.reqres.request 'link:entities'
   linkToSelect = links.find (link) ->
     link.get('url') == linkUrl
   linkToSelect.select()

@@ -11,15 +11,15 @@ UserEditView = require '../views/edit/user'
 
 showMessaging = ->
   Backbone.history.navigate 'messaging'
-  Radio.commands.execute 'global', 'set:active:menu', 'messaging'
+  Radio.commands.execute 'set:active:menu', 'messaging'
 
   layout = new LayoutShowView()
 
-  fetchingMessages = Radio.reqres.request 'global', 'message:entities'
-  fetchingUsers = Radio.reqres.request 'global', 'user:entities'
+  fetchingMessages = Radio.reqres.request 'message:entities'
+  fetchingUsers = Radio.reqres.request 'user:entities'
   personalId = ''
 
-  Radio.vent.on 'global', 'messaging:personalId', (id) ->
+  Radio.vent.on 'messaging:personalId', (id) ->
     personalId = id
 
   $.when(fetchingMessages, fetchingUsers).done (messages, users) =>
@@ -34,36 +34,37 @@ showMessaging = ->
         text: outMessage
       if newMessage.save()
         messages.add newMessage
-        Radio.vent.trigger 'global', 'socket:outboundMsg', newMessage.get 'text'
+        Radio.vent.trigger 'socket:outboundMsg', newMessage.get 'text'
 
-    Radio.vent.on 'global', 'socket:newUser', (newUser) ->
+    Radio.vent.on 'socket:newUser', (newUser) ->
       users.add newUser
 
-    Radio.vent.on 'global', 'socket:changeUser', (changedUser) ->
+    Radio.vent.on 'socket:changeUser', (changedUser) ->
       user = users.get changedUser.id
       user.set changedUser
       users.trigger 'reset'
 
-    Radio.vent.on 'global', 'socket:leaveUser', (id) ->
+    Radio.vent.on 'socket:leaveUser', (id) ->
       users.remove users.get id
 
-    Radio.vent.on 'global', 'socket:inboundMsg', (inMessage) ->
+    Radio.vent.on 'socket:inboundMsg', (inMessage) ->
       incomingMessage = new Message inMessage
       messages.add incomingMessage
 
-    Radio.vent.on 'global', 'nickname:change', =>
-      view = new UserEditView()
+    @listenTo Radio.vent, 'nickname:change', =>
+      unless messagesShowView.isDestroyed
+        view = new UserEditView()
 
-      view.on 'form:submit', (data) =>
-        Radio.vent.trigger 'global', 'socket:changeName', data
-        
-        @options.dialogRegion.empty()
+        view.on 'form:submit', (data) =>
+          Radio.vent.trigger 'socket:changeName', data
+          @options.dialogRegion.empty()
 
-      @options.dialogRegion.show view
+        @options.dialogRegion.show view
 
     @listenTo layout, 'show', ->
       layout.messagesRegion.show messagesShowView
       layout.usersRegion.show usersShowView
+
 
     @options.messagingRegion.show layout
 

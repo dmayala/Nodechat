@@ -11,7 +11,7 @@ class BaseController extends Marionette.Controller
     @setHandlers()
 
   setHandlers: ->
-    Radio.commands.setHandler 'global', 'set:active:menu', (name) =>
+    Radio.commands.setHandler 'set:active:menu', (name) =>
       @setActiveMenu name
 
 module.exports = BaseController

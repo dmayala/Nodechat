@@ -6,7 +6,7 @@ links = undefined
 initializeLinks = ->
   links = new LinkCollection [
     { name: 'Chat', url: 'messaging', navigationTrigger: 'messaging:show' }
-    { name: 'Change Username', url: 'messaging', navigationTrigger: 'nickname:change' }
+    { name: 'Change Nickname', url: '', navigationTrigger: 'nickname:change' }
   ]
 
 API =
@@ -19,6 +19,6 @@ LinksAPI =
     @setHandlers()
 
   setHandlers: ->
-    Radio.reqres.setHandler 'global', 'link:entities', -> API.getLinks()
+    Radio.reqres.setHandler 'link:entities', -> API.getLinks()
 
 module.exports = LinksAPI

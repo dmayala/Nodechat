@@ -19,7 +19,9 @@
     "jquery.spinjs": "*",
     "marionette.backbone.syphon": "~0.5.0",
     "backbone.picky": "~0.2.0",
-    "moment": "~2.8.3"
+    "moment": "~2.8.3",
+    "bootstrap-material-design": "~0.1.2",
+    "bootstrap": "~3.2.0"
   },
   "resolutions": {
     "backbone": "1.0.0 - 1.1.2"

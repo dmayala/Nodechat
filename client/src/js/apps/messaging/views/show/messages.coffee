@@ -1,8 +1,8 @@
 Marionette = require 'backbone.marionette'
 
 class Messages extends Marionette.CollectionView
-  className: 'row scrollable maxheight'
   childView: require './message'
+  className: 'list-group'
 
   initialize: ->
     _.defer =>

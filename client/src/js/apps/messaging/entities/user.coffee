@@ -22,8 +22,8 @@ UserAPI =
     @setHandlers()
 
   setHandlers: ->
-    Radio.reqres.setHandler 'global', 'user:entity', (id) -> getUserEntity(id)
-    Radio.reqres.setHandler 'global', 'user:entities', -> getUserEntities()
+    Radio.reqres.setHandler 'user:entity', (id) -> getUserEntity(id)
+    Radio.reqres.setHandler 'user:entities', -> getUserEntities()
 
 module.exports = UserAPI
 

@@ -22,8 +22,8 @@ MessageAPI =
     @setHandlers()
 
   setHandlers: ->
-    Radio.reqres.setHandler 'global', 'message:entity', (id) -> getMessageEntity(id)
-    Radio.reqres.setHandler 'global', 'message:entities', -> getMessageEntities()
+    Radio.reqres.setHandler 'message:entity', (id) -> getMessageEntity(id)
+    Radio.reqres.setHandler 'message:entities', -> getMessageEntities()
 
 module.exports = MessageAPI
 

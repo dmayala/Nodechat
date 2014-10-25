@@ -27,6 +27,6 @@ App.getCurrentRoute = -> Backbone.history.fragment
 
 App.on 'start', ->
   Backbone.history.start() if Backbone.history
-  Radio.vent.trigger('global', 'messaging:show') if @getCurrentRoute() is ''
+  Radio.vent.trigger('messaging:show') if @getCurrentRoute() is ''
 
 module.exports = App

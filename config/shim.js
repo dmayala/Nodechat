@@ -7,10 +7,17 @@ module.exports = {
       "jquery":"jQuery"
     }
   },
-  "jasny-bootstrap": {
-    "exports": "jasny",
-	"depends": { 
-      "bootstrap":"bootstrap"
+  "ripples-bootstrap": {
+    "exports": "ripples",
+    "depends": {
+      'jquery': '$'
+    }
+  },
+  "material-bootstrap": {
+    "exports": "material",
+	  "depends": { 
+      "bootstrap":"bootstrap",
+      "ripples-bootstrap": "ripples"
     }
   },
   "backbone": { 

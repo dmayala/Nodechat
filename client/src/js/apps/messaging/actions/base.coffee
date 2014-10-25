@@ -11,7 +11,7 @@ class BaseController extends Marionette.Controller
     @setHandlers()
 
   setHandlers: ->
-    Radio.vent.on 'global', 'messaging:show', =>
+    Radio.vent.on 'messaging:show', =>
       @showMessaging()
 
 module.exports = BaseController
