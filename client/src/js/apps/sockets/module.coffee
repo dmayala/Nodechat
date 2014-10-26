@@ -1,12 +1,13 @@
 Marionette = require 'backbone.marionette'
 Radio = require '../../radio'
 
+
 class Module extends Marionette.Module
   socket = io();
   socket.emit 'login'
 
-  socket.on 'setPersonalId', (id) ->
-    Radio.vent.trigger 'messaging:personalId', id
+  personalId = null
+  socket.on 'setPersonalId', (id) -> personalId = id
 
   socket.on 'serverMessage', (message) ->
     Radio.vent.trigger 'socket:newUser', message.newUser
@@ -26,5 +27,9 @@ class Module extends Marionette.Module
   Radio.vent.on 'socket:changeName', (user) ->
     socket.emit 'change:name', user
 
+  Radio.reqres.setHandler 'messaging:personalId', -> 
+    defer = $.Deferred()
+    (repeat = -> if personalId then defer.resolve personalId else setTimeout repeat, 1000)() 
+    return defer.promise()
 
 module.exports = Module

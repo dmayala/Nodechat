@@ -1,6 +1,9 @@
 <form>
   <div class="form-group">
-    <input id="user-nickname" name="nickname" type="text" value="{{ nickname }}" placeholder="Enter a new nickname..." class="form-control">
+    <div class="form-control-wrapper">
+      <input id="user-nickname" class="form-control empty" name="nickname" type="text" value="{{ nickname }}" placeholder="Enter a new nickname...">
+      <span class="material-input"></span>
+    </div>
   </div>
   <button class="btn js-submit btn-default">Save</button>
 </form>

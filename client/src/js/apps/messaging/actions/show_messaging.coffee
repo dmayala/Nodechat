@@ -9,7 +9,10 @@ MessagesShowView = require '../views/show/messages'
 UsersShowView = require '../views/show/users'
 UserEditView = require '../views/edit/user'
 
+scope = {}
+
 showMessaging = ->
+  @stopListening()
   Backbone.history.navigate 'messaging'
   Radio.commands.execute 'set:active:menu', 'messaging'
 
@@ -17,54 +20,50 @@ showMessaging = ->
 
   fetchingMessages = Radio.reqres.request 'message:entities'
   fetchingUsers = Radio.reqres.request 'user:entities'
-  personalId = ''
-
-  Radio.vent.on 'messaging:personalId', (id) ->
-    personalId = id
+  fetchingPersonalId = Radio.reqres.request 'messaging:personalId'
 
   $.when(fetchingMessages, fetchingUsers).done (messages, users) =>
 
     messagesShowView = new MessagesShowView collection: messages
     usersShowView = new UsersShowView collection: users
 
-    @listenTo layout, 'message:outbound', (outMessage) -> 
-      newMessage = new Message
-        timestamp: new Date()
-        author: (users.get personalId).get 'nickname'
-        text: outMessage
-      if newMessage.save()
-        messages.add newMessage
-        Radio.vent.trigger 'socket:outboundMsg', newMessage.get 'text'
+    @listenTo layout, 'message:outbound', (outMessage) ->
+      $.when(fetchingPersonalId).done (personalId) =>
+        newMessage = new Message
+          timestamp: new Date()
+          author: (users.get personalId).get 'nickname'
+          text: outMessage
+        if newMessage.save()
+          messages.add newMessage
+          Radio.vent.trigger 'socket:outboundMsg', newMessage.get 'text'
 
-    Radio.vent.on 'socket:newUser', (newUser) ->
+    @listenTo Radio.vent, 'socket:newUser', (newUser) ->
       users.add newUser
 
-    Radio.vent.on 'socket:changeUser', (changedUser) ->
+    @listenTo Radio.vent, 'socket:changeUser', (changedUser) ->
       user = users.get changedUser.id
       user.set changedUser
       users.trigger 'reset'
 
-    Radio.vent.on 'socket:leaveUser', (id) ->
+    @listenTo Radio.vent, 'socket:leaveUser', (id) ->
       users.remove users.get id
 
-    Radio.vent.on 'socket:inboundMsg', (inMessage) ->
+    @listenTo Radio.vent, 'socket:inboundMsg', (inMessage) ->
       incomingMessage = new Message inMessage
       messages.add incomingMessage
 
     @listenTo Radio.vent, 'nickname:change', =>
-      unless messagesShowView.isDestroyed
-        view = new UserEditView()
+      view = new UserEditView()
 
-        view.on 'form:submit', (data) =>
-          Radio.vent.trigger 'socket:changeName', data
-          @options.dialogRegion.empty()
+      view.on 'form:submit', (data) =>
+        Radio.vent.trigger 'socket:changeName', data
+        @options.dialogRegion.empty()
 
-        @options.dialogRegion.show view
+      @options.dialogRegion.show view
 
     @listenTo layout, 'show', ->
       layout.messagesRegion.show messagesShowView
       layout.usersRegion.show usersShowView
-
 
     @options.messagingRegion.show layout
 
