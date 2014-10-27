@@ -38,6 +38,11 @@ exports.register = (plugin, options, next) ->
           text: "#{oldnick} will now be known as #{socketUser.nickname}"
           user: socketUser
 
+    # change status
+    socket.on 'change:status', (status) ->
+      UserEntity.updateUser socketUser.id, status: status, (err, user) ->
+        socketUser = user unless err
+        io.emit 'change:status:success', socketUser
 
     # disconnect
     socket.on 'disconnect', ->

@@ -2,8 +2,10 @@ _ = require 'underscore'
 mongoose = require 'mongoose'
 
 usersRepo = []
+reservedNames = ['SERVER']
 
-isNameTaken = (name) -> _.findWhere(usersRepo, nickname: name)
+isNameTaken = (name) -> 
+  _.indexOf(reservedNames, name) > -1 or _.findWhere(usersRepo, nickname: name)
 
 # randomly generate names
 createXNames = (x) ->
@@ -15,6 +17,7 @@ class User
   constructor: (options = {}) ->
     @id = mongoose.Types.ObjectId().toString()
     @nickname = options.nickname or createXNames(10000)
+    @status = options.status or true
 
 UserAPI =
   createUser: (options = {}, cb) -> 

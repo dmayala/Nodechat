@@ -5,4 +5,10 @@ class Users extends Marionette.CompositeView
   childView: require './user'
   childViewContainer: '.users'
 
+  collectionEvents:
+    add: 'updateUserCount'
+    remove: 'updateUserCount'
+
+  updateUserCount: -> @$el.find('span').text @collection.length
+
 module.exports = Users

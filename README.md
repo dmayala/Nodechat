@@ -1,6 +1,6 @@
 # Nodechat 
 
-A chat application meant for me to experiment with the following tools:
+A chat application meant to showcase the use of the following tools:
 
 - [hapi.js](http://hapijs.com/)
 - [Marionette.js](http://marionettejs.com/)
