@@ -1,5 +1,6 @@
 _ = require 'underscore'
 mongoose = require 'mongoose'
+AvatarsIO = require 'avatars.io'
 
 usersRepo = []
 reservedNames = ['SERVER']
@@ -18,6 +19,7 @@ class User
     @id = mongoose.Types.ObjectId().toString()
     @nickname = options.nickname or createXNames(10000)
     @status = options.status or true
+    @avatar = "#{AvatarsIO.auto @nickname}?size=large"
 
 UserAPI =
   createUser: (options = {}, cb) -> 
@@ -34,6 +36,8 @@ UserAPI =
 
       if options.nickname && isNameTaken options.nickname
         return cb null, user
+
+      options.avatar = "#{AvatarsIO.auto options.nickname}?size=large"
 
       cb(null, _.extend user, options) unless err
 

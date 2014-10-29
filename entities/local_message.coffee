@@ -8,6 +8,7 @@ class Message
     @id = mongoose.Types.ObjectId().toString()
     @timestamp = options.timestamp
     @author = options.author
+    @avatar = options.avatar
     @text = options.text
 
 MessagesAPI =

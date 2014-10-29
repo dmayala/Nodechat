@@ -60,6 +60,7 @@ exports.register = (plugin, options, next) ->
     socket.on 'clientMessage', (text) -> 
       socket.broadcast.emit 'serverMessage',
         timestamp: moment()
+        avatar: socketUser.avatar
         author: socketUser.nickname
         text: text
    

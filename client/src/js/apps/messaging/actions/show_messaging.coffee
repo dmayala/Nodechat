@@ -29,9 +29,11 @@ showMessaging = ->
 
     @listenTo layout, 'message:outbound', (outMessage) ->
       $.when(fetchingPersonalId).done (personalId) =>
+        currentUser = users.get personalId
         newMessage = new Message
           timestamp: new Date()
-          author: (users.get personalId).get 'nickname'
+          author: currentUser.get 'nickname'
+          avatar: currentUser.get 'avatar'
           text: outMessage
         if newMessage.save()
           messages.add newMessage

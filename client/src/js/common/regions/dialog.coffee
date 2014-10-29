@@ -14,11 +14,9 @@ class Dialog extends Marionette.Region
     @$el.modal backdrop: true, show: true
 
   onBeforeEmpty: ->
-    console.log 'on before empty'
     @$el.modal 'hide'
 
   closeDialog: =>
-    console.log 'close dialog'
     @$el.off 'hidden.bs.modal'
     @empty()
     @$el.modal 'hide'
