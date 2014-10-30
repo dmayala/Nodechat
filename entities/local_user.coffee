@@ -2,6 +2,9 @@ _ = require 'underscore'
 mongoose = require 'mongoose'
 AvatarsIO = require 'avatars.io'
 
+AvatarsIO.appId = process.env.APP_ID
+AvatarsIO.accessToken = process.env.ACCESS_TOKEN
+
 usersRepo = []
 reservedNames = ['SERVER']
 
@@ -37,7 +40,7 @@ UserAPI =
       if options.nickname && isNameTaken options.nickname
         return cb null, user
 
-      options.avatar = "#{AvatarsIO.auto options.nickname}?size=large"
+      options.avatar ||= "#{AvatarsIO.auto options.nickname}?size=large"
 
       cb(null, _.extend user, options) unless err
 
@@ -46,5 +49,9 @@ UserAPI =
       usersRepo.splice(_.indexOf(usersRepo, user), 1) unless err
       cb null, null
 
+  uploadAvatar: (id, image, cb) ->
+    AvatarsIO.upload image, AvatarsIO.appId, (err, url) =>
+      @updateUser id, { avatar: url }, (err, user) ->
+        cb null, user  
 
 module.exports = UserAPI

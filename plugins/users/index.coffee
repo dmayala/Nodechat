@@ -1,4 +1,5 @@
 UserEntity = require '../../entities/local_user'
+fs = require 'fs'
 
 exports.register = (plugin, options, next) ->
 
@@ -15,6 +16,25 @@ exports.register = (plugin, options, next) ->
     handler: (request, reply) -> 
       UserEntity.getUser request.params.id, (err, user) ->
         reply err or user
+
+  plugin.route
+    method: 'POST'
+    path: '/api/users/avatar'
+    config:
+      payload:
+        maxBytes: 209715200
+        output: 'stream'
+        parse: true
+      handler: (request, reply) ->
+        if request.payload?.file?
+          id = request.payload.id
+          ws = fs.createWriteStream "images/#{id}.png"
+          request.payload.file.pipe ws
+          ws.on 'close', ->
+            UserEntity.uploadAvatar id, "images/#{id}.png", (err, url) ->
+              reply err or url         
+        else
+          reply new Error()
                
   next()
 

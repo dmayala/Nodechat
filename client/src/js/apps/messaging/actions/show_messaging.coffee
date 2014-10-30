@@ -8,8 +8,7 @@ LayoutShowView = require '../views/show/layout'
 MessagesShowView = require '../views/show/messages'
 UsersShowView = require '../views/show/users'
 UserEditView = require '../views/edit/user'
-
-scope = {}
+UserAvatarEditView = require '../views/edit/user_avatar'
 
 showMessaging = ->
   @stopListening()
@@ -62,6 +61,16 @@ showMessaging = ->
         @options.dialogRegion.empty()
 
       @options.dialogRegion.show view
+
+    @listenTo Radio.vent, 'avatar:change', =>
+      $.when(fetchingPersonalId).done (personalId) =>
+        view = new UserAvatarEditView personalId: personalId
+
+        view.on 'form:submit', (data) =>
+          Radio.vent.trigger 'socket:changeName', data
+          @options.dialogRegion.empty()
+
+        @options.dialogRegion.show view
 
     @listenTo layout, 'show', ->
       layout.messagesRegion.show messagesShowView

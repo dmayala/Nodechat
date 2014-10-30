@@ -40,6 +40,13 @@ html, body {
    background-color: #f5f5f5;
 }
 
+#avatar-preview {
+  margin-top: 15px;
+  max-height: 53px;
+  max-width: 53px;
+  border-radius: 100%;
+}
+
 @media (min-width: 768px) {
   #messaging-region {
     padding-top: 15px;

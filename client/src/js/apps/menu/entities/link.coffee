@@ -7,6 +7,7 @@ initializeLinks = ->
   links = new LinkCollection [
     { name: 'Chat', url: 'messaging', navigationTrigger: 'messaging:show' }
     { name: 'Change Nickname', url: '', navigationTrigger: 'nickname:change' }
+    { name: 'Change Avatar', url: '', navigationTrigger: 'avatar:change' }
   ]
 
 API =
