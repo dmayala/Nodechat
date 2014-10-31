@@ -28,10 +28,12 @@ exports.register = (plugin, options, next) ->
       handler: (request, reply) ->
         if request.payload?.file?
           id = request.payload.id
-          ws = fs.createWriteStream "images/#{id}.png"
+          fileName = "tmp/#{id}.png"
+          ws = fs.createWriteStream fileName
           request.payload.file.pipe ws
           ws.on 'close', ->
-            UserEntity.uploadAvatar id, "images/#{id}.png", (err, url) ->
+            UserEntity.uploadAvatar id, fileName, (err, url) ->
+              fs.unlink fileName
               reply err or url         
         else
           reply new Error()
