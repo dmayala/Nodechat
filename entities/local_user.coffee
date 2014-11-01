@@ -50,7 +50,7 @@ UserAPI =
       cb null, null
 
   uploadAvatar: (id, image, cb) ->
-    AvatarsIO.upload image, AvatarsIO.appId, (err, url) =>
+    AvatarsIO.upload image, (err, url) =>
       @updateUser id, { avatar: url }, (err, user) ->
         cb null, user  
 

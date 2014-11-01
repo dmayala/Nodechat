@@ -34,6 +34,7 @@
     "browserify-shim": "^3.7.0",
     "coffee-script": "^1.8.0",
     "coffeeify": "^0.7.0",
+    "emojify.js": "^0.9.5",
     "gulp": "^3.8.7",
     "gulp-nodemon": "^1.0.4",
     "gulp-notify": "^1.5.0",
