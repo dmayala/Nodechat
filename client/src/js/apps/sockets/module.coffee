@@ -21,7 +21,7 @@ class Module extends Marionette.Module
     Radio.vent.trigger 'socket:inboundMsg', message
     Radio.vent.trigger 'socket:changeUser', message.user
 
-  socket.on 'change:status:success', (user) ->
+  socket.on 'change:success', (user) ->
     Radio.vent.trigger 'socket:changeUser', user
 
   Radio.vent.on 'socket:outboundMsg', (message) ->
@@ -29,6 +29,9 @@ class Module extends Marionette.Module
 
   Radio.vent.on 'socket:changeName', (user) ->
     socket.emit 'change:name', user
+
+  Radio.vent.on 'socket:changeAvatar', (user) ->
+    socket.emit 'change:avatar', user
 
   Radio.vent.on 'socket:changeStatus', (status) ->
     socket.emit 'change:status', status

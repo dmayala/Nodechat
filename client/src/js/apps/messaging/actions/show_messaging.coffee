@@ -66,8 +66,8 @@ showMessaging = ->
       $.when(fetchingPersonalId).done (personalId) =>
         view = new UserAvatarEditView personalId: personalId
 
-        view.on 'form:submit', (data) =>
-          Radio.vent.trigger 'socket:changeName', data
+        view.on 'avatar:form:success', (data) =>
+          Radio.vent.trigger 'socket:changeAvatar', data
           @options.dialogRegion.empty()
 
         @options.dialogRegion.show view

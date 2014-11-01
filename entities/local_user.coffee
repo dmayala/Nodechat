@@ -22,7 +22,7 @@ class User
     @id = mongoose.Types.ObjectId().toString()
     @nickname = options.nickname or createXNames(10000)
     @status = options.status or true
-    @avatar = "#{AvatarsIO.auto @nickname}?size=large"
+    @avatar = AvatarsIO.auto @nickname
 
 UserAPI =
   createUser: (options = {}, cb) -> 
@@ -40,8 +40,8 @@ UserAPI =
       if options.nickname && isNameTaken options.nickname
         return cb null, user
 
-      options.avatar ||= "#{AvatarsIO.auto options.nickname}?size=large"
-
+      options.avatar or= user.avatar
+        
       cb(null, _.extend user, options) unless err
 
   deleteUser: (id, cb) -> 

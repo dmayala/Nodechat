@@ -20,8 +20,7 @@ class UserAvatar extends Marionette.ItemView
       contentType: false
       data: fd
       dataType: 'json'
-      success: -> console.log 'success'
-      error: -> console.log 'error'
+      success: (data) => @trigger 'avatar:form:success', data
 
   showPreview: (e) ->
     input = e.currentTarget
