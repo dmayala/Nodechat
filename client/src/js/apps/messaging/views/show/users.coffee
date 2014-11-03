@@ -10,5 +10,6 @@ class Users extends Marionette.CompositeView
     remove: 'updateUserCount'
 
   updateUserCount: -> @$el.find('span').text @collection.length
+  onRender: -> @updateUserCount()
 
 module.exports = Users
