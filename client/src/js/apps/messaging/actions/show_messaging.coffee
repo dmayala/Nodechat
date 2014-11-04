@@ -50,8 +50,11 @@ showMessaging = ->
       users.remove users.get id
 
     @listenTo Radio.vent, 'socket:inboundMsg', (inMessage) ->
-      incomingMessage = new Message inMessage
-      messages.add incomingMessage
+      $.when(fetchingPersonalId).done (personalId) =>
+        user = users.get personalId
+        incomingMessage = new Message inMessage
+        Radio.vent.trigger('messaging:unread:msg') if user.get('status') is false
+        messages.add incomingMessage
 
     @listenTo Radio.vent, 'nickname:change', =>
       view = new UserEditView()

@@ -1,9 +1,8 @@
 Marionette = require 'backbone.marionette'
 Radio = require '../../radio'
 
-
 class Module extends Marionette.Module
-  socket = io();
+  socket = io()
   socket.emit 'login'
 
   personalId = null

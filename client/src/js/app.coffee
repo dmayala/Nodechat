@@ -6,6 +6,7 @@ Radio = require './radio'
 MenuModule = require './apps/menu/module'
 MessagingModule = require './apps/messaging/module'
 SocketsModule = require './apps/sockets/module'
+WindowManagerModule = require './apps/window_manager/module'
 
 # create application namespace
 App = new Marionette.Application()
@@ -22,11 +23,7 @@ App.addRegions
 App.module 'menu', MenuModule
 App.module 'messaging', MessagingModule
 App.module 'sockets', SocketsModule
-
-# window events
-$(window)
-  .focus -> Radio.vent.trigger 'socket:changeStatus', true
-  .blur -> Radio.vent.trigger 'socket:changeStatus', false
+App.module 'window_manager', WindowManagerModule
 
 App.getCurrentRoute = -> Backbone.history.fragment
 
