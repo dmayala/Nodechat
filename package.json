@@ -10,6 +10,7 @@
     "ripples-bootstrap": "./client/src/js/vendor/bootstrap-material-design/dist/js/ripples.js",
     "spin": "./client/src/js/vendor/spin.js/spin.js",
     "jquery.spin": "./client/src/js/vendor/spin.js/jquery.spin.js",
+    "favico": "./client/src/js/vendor/favico.js/favico.js",
     "underscore": "./client/src/js/vendor/underscore/underscore.js",
     "backbone": "./client/src/js/vendor/backbone/backbone.js",
     "backbone.localStorage": "./client/src/js/vendor/backbone.localstorage/backbone.localStorage.js",

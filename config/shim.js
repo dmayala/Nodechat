@@ -20,6 +20,7 @@ module.exports = {
       "ripples-bootstrap": "ripples"
     }
   },
+  "favico":"Favico",
   "backbone": { 
     "exports": "Backbone",
     "depends": { 
