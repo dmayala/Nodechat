@@ -12,6 +12,16 @@ A chat application meant to showcase the use of the following tools:
 ## Requirements
   - [node.js](http://nodejs.org/)
   - [Heroku Toolbelt](https://toolbelt.heroku.com/)
+  - [Avatars.io App ID and Access Token](http://avatars.io/)
+
+An .env file needs to be created in the project root, with the following attributes:
+
+```sh
+  NODE_ENV=INSERTVARHERE
+  APP_ID=INSERTVARHERE
+  ACCESS_TOKEN=INSERTVARHERE
+``` 
+Where ```INSERTVARHERE``` is replaced with your own values.
 
 ## Running Locally
 Install the software in the above requirements, then execute the following commands:
